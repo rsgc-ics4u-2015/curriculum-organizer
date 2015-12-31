@@ -1,7 +1,5 @@
 <?php
 
-echo print_r($_POST);
-
 if(isset($_POST['submit']))  {
     
     // This is a self-submitting form; eventually, add logic to process a log-in below.
