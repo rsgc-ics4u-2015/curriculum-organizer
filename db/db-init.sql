@@ -21,7 +21,7 @@ USE `ct` ;
 DROP TABLE IF EXISTS `ct`.`author_or_editor` ;
 
 CREATE TABLE IF NOT EXISTS `ct`.`author_or_editor` (
-  `id` INT NOT NULL COMMENT '',
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `username` VARCHAR(45) NOT NULL COMMENT '',
   `firstname` VARCHAR(45) NULL COMMENT '',
   `lastname` VARCHAR(45) NOT NULL COMMENT '',
@@ -38,7 +38,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ct`.`type` ;
 
 CREATE TABLE IF NOT EXISTS `ct`.`type` (
-  `id` INT NOT NULL COMMENT '',
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `description` VARCHAR(45) NOT NULL COMMENT '',
   PRIMARY KEY (`id`)  COMMENT '')
 ENGINE = InnoDB;
@@ -50,7 +50,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ct`.`evaluation_category` ;
 
 CREATE TABLE IF NOT EXISTS `ct`.`evaluation_category` (
-  `id` INT NOT NULL COMMENT '',
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `name` VARCHAR(45) NOT NULL COMMENT '',
   PRIMARY KEY (`id`)  COMMENT '')
 ENGINE = InnoDB;
@@ -62,7 +62,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ct`.`question` ;
 
 CREATE TABLE IF NOT EXISTS `ct`.`question` (
-  `id` INT NOT NULL COMMENT '',
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `shortlabel` VARCHAR(10) NOT NULL COMMENT '',
   `position` INT NOT NULL COMMENT '',
   `title` VARCHAR(45) NOT NULL COMMENT '',
@@ -98,7 +98,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ct`.`citation_or_source` ;
 
 CREATE TABLE IF NOT EXISTS `ct`.`citation_or_source` (
-  `id` INT NOT NULL COMMENT '',
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `description` VARCHAR(1000) NOT NULL COMMENT '',
   `shortname` VARCHAR(45) NOT NULL COMMENT '',
   PRIMARY KEY (`id`)  COMMENT '')
@@ -111,7 +111,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ct`.`course` ;
 
 CREATE TABLE IF NOT EXISTS `ct`.`course` (
-  `id` INT NOT NULL COMMENT '',
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `name` VARCHAR(45) NOT NULL COMMENT '',
   `description` VARCHAR(255) NOT NULL COMMENT '',
   `code` VARCHAR(8) NOT NULL COMMENT '',
@@ -126,7 +126,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ct`.`strand` ;
 
 CREATE TABLE IF NOT EXISTS `ct`.`strand` (
-  `id` INT NOT NULL COMMENT '',
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `code` VARCHAR(2) NOT NULL COMMENT '',
   `title` VARCHAR(255) NOT NULL COMMENT '',
   `course_id` INT NOT NULL COMMENT '',
@@ -146,7 +146,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ct`.`overall_expectation` ;
 
 CREATE TABLE IF NOT EXISTS `ct`.`overall_expectation` (
-  `id` INT NOT NULL COMMENT '',
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `code` VARCHAR(2) NOT NULL COMMENT '',
   `title` VARCHAR(255) NOT NULL COMMENT '',
   `description` VARCHAR(500) NOT NULL COMMENT '',
@@ -167,7 +167,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ct`.`minor_expectation` ;
 
 CREATE TABLE IF NOT EXISTS `ct`.`minor_expectation` (
-  `id` INT NOT NULL COMMENT '',
+  `id` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `code` VARCHAR(2) NOT NULL COMMENT '',
   `description` VARCHAR(1000) NULL COMMENT '',
   `overall_expectation_id` INT NOT NULL COMMENT '',
@@ -211,7 +211,7 @@ ENGINE = InnoDB;
 DROP TABLE IF EXISTS `ct`.`question_has_minor_expectation` ;
 
 CREATE TABLE IF NOT EXISTS `ct`.`question_has_minor_expectation` (
-  `question_id` INT NOT NULL COMMENT '',
+  `question_id` INT NOT NULL AUTO_INCREMENT COMMENT '',
   `minor_expectation_id` INT NOT NULL COMMENT '',
   PRIMARY KEY (`question_id`, `minor_expectation_id`)  COMMENT '',
   INDEX `fk_question_has_minor_expectation_minor_expectation1_idx` (`minor_expectation_id` ASC)  COMMENT '',
