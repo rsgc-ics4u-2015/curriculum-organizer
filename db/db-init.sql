@@ -19,11 +19,13 @@ USE `ct` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ct`.`author_or_editor` (
   `id` INT NOT NULL COMMENT '',
-  `password` VARCHAR(255) NOT NULL COMMENT '',
+  `username` VARCHAR(45) NOT NULL COMMENT '',
   `firstname` VARCHAR(45) NULL COMMENT '',
   `lastname` VARCHAR(45) NOT NULL COMMENT '',
+  `password` VARCHAR(255) NOT NULL COMMENT '',
   `approved` TINYINT(1) NOT NULL COMMENT '',
-  PRIMARY KEY (`id`)  COMMENT '')
+  PRIMARY KEY (`id`)  COMMENT '',
+  UNIQUE INDEX `username_UNIQUE` (`username` ASC)  COMMENT '')
 ENGINE = InnoDB;
 
 
