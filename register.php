@@ -1,5 +1,16 @@
 <?php
 
+// If user is already logged in, re-direct to courses page.
+session_start();
+if(isset($_SESSION['username']))
+{
+    $host  = $_SERVER['HTTP_HOST'];
+    $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+    $extra = 'courses.php';
+    header("Location: http://$host$uri/$extra");
+    exit;
+}
+
 // This page is a self-submitting form.
 // Process the submitted form.
 if(isset($_POST['submit']))  {

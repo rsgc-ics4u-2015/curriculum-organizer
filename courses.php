@@ -1,8 +1,17 @@
 <?php
 
-    // TODO: Check whether session created (is user logged in?)
-    //       If yes, show list of courses, if not, re-direct to main index page.
-
+    // Check whether session created (is user logged in?)
+    // If not, re-direct to main index page.
+    session_start();
+    if(!isset($_SESSION['username']))
+    {
+        // All is well, re-direct to the courses page
+        $host  = $_SERVER['HTTP_HOST'];
+        $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+        $extra = 'index.php';
+        header("Location: http://$host$uri/$extra");
+        exit;
+    }
 
     // Show list of courses
     // Connect to database
@@ -53,6 +62,10 @@
     <script src="js/scripts.js"></script>
 
     <p>Home</p>
+
+    <p><?php echo $_SESSION['username']; ?></p>
+
+    <p><a href="logout.php">logout</a></a></p>
 
     <h1>Courses</h1>
   

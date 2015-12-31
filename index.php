@@ -32,7 +32,11 @@ if(isset($_POST['submit']))  {
           $row = mysqli_fetch_assoc($result);
           $stored_password = $row['password'];
           if (password_verify($provided_password, $stored_password) == true) {
-                // All is well, re-direct to the courses page
+                // All is well, set the session
+                session_start();
+                $_SESSION['username'] = $provided_username; 
+                
+                // Now re-direct to the courses page
                 $host  = $_SERVER['HTTP_HOST'];
                 $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
                 $extra = 'courses.php';
