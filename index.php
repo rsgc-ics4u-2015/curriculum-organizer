@@ -3,19 +3,8 @@
 if(isset($_POST['submit']))  {
     
     // This is a self-submitting form; eventually, add logic to process a log-in below.
-    $output = "<p>Login logic not yet implemented.</p>";
-    $output .= "<p>You tried to log in with username: <strong>" . htmlspecialchars($_POST['username']) . "</strong></p>";
-    
-} else {
-    
-    // Show this form by default
-    $output = "<form action=" . $_SERVER['PHP_SELF'] . " method=\"post\">";
-    $output .= "Username:<br/>";
-    $output .= "<input type=\"text\" name=\"username\" value=\"\"><br/>";
-    $output .= "Password:<br/>";
-    $output .= "<input type=\"password\" name=\"password\" value=\"\"><br/>";
-    $output .= "<input type=\"submit\" name=\"submit\" value=\"Login\">";
-    $output .= "</form>";
+    $message['general'] = "<p>Login logic not yet implemented.</p>";
+    $message['general'] .= "<p>You tried to log in with username: <strong>" . htmlspecialchars($_POST['username']) . "</strong></p>";
     
 }
 
@@ -44,9 +33,17 @@ if(isset($_POST['submit']))  {
 
     <h1>Curriculum Tracker</h1>
   
-    <?php echo $output ?>
+    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+        Username:<br/>
+        <input type="text" name="username" value="<?php echo $_POST['username'] ?>" maxlength="45" size="45"> <?php echo $message['username']; ?><br/><br/>
+        Password:<br/>
+        <input type="password" name="password" value="<?php echo $_POST['password'] ?>" maxlength="45" size="45"> <?php echo $message['password']; ?><br/><br/>
+        <input type="submit" name="submit" value="Login">
+    </form>
   
     <p>... or, <a href="register.php">create a new account</a>.</p>
+
+    <p><?php echo $message['general']; ?></p>
   
 </body>
 </html>
