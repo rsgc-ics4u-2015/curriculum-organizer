@@ -4,7 +4,7 @@ if(isset($_POST['submit']))  {
     
     // This is a self-submitting form; eventually, add logic to process a log-in below.
     $output = "<p>Login logic not yet implemented.</p>";
-    $output .= "<p>You tried to log in with username: <strong>" . htmlentities($_POST['username']) . "</strong></p>";
+    $output .= "<p>You tried to log in with username: <strong>" . htmlspecialchars($_POST['username']) . "</strong></p>";
     
 } else {
     
