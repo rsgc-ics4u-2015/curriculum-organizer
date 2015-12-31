@@ -2,9 +2,47 @@
 
 if(isset($_POST['submit']))  {
     
-    // This is a self-submitting form; eventually, add logic to process a log-in below.
-    $message['general'] = "<p>Login logic not yet implemented.</p>";
-    $message['general'] .= "<p>You tried to log in with username: <strong>" . htmlspecialchars($_POST['username']) . "</strong></p>";
+    // Connect to database
+    $host = "127.0.0.1";
+    $user = "rgordonatrsgc";
+    $pass = "";
+    $db = "ct";
+    $port = 3306;
+    
+    // Establish the connection
+    // (note username and password here is the *database* username and password, not for a user of this website)
+    $connection = mysqli_connect($host, $user, $pass, $db, $port) or die(mysql_error());
+
+    // Process a log in
+    $provided_username = htmlspecialchars($_POST['username']);
+    $provided_password = htmlspecialchars($_POST['password']);
+    $query = "SELECT password FROM author_or_editor WHERE username = ('" . $provided_username . "');";
+    
+    // Get results
+    $result = mysqli_query($connection, $query);
+    
+    // Compare the provided password to the stored password
+    if ($result == false) {
+        $message['general'] = "An unexpected error occurred. Please try again later.";
+    } else {
+        if (mysqli_num_rows($result) == 0) {
+          $message['general'] = "Error. The user <strong>" . $provided_username . "</strong> was not found.";
+        } else {
+          // We have a result, now do the comparison of passwords
+          $row = mysqli_fetch_assoc($result);
+          $stored_password = $row['password'];
+          if (password_verify($provided_password, $stored_password) == true) {
+                // All is well, re-direct to the courses page
+                $host  = $_SERVER['HTTP_HOST'];
+                $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+                $extra = 'courses.php';
+                header("Location: http://$host$uri/$extra");
+                exit;
+          } else {
+              $message['general'] = "Incorrect password for user <strong>" . $provided_username . "</strong>.";
+          }
+        }
+    }
     
 }
 
