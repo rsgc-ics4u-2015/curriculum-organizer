@@ -7,7 +7,6 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 -- -----------------------------------------------------
 -- Schema ct
 -- -----------------------------------------------------
-DROP SCHEMA IF EXISTS `ct` ;
 
 -- -----------------------------------------------------
 -- Schema ct
@@ -18,13 +17,12 @@ USE `ct` ;
 -- -----------------------------------------------------
 -- Table `ct`.`author_or_editor`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ct`.`author_or_editor` ;
-
 CREATE TABLE IF NOT EXISTS `ct`.`author_or_editor` (
   `id` INT NOT NULL COMMENT '',
   `password` VARCHAR(255) NOT NULL COMMENT '',
   `firstname` VARCHAR(45) NULL COMMENT '',
   `lastname` VARCHAR(45) NOT NULL COMMENT '',
+  `approved` TINYINT(1) NOT NULL COMMENT '',
   PRIMARY KEY (`id`)  COMMENT '')
 ENGINE = InnoDB;
 
@@ -32,8 +30,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `ct`.`type`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ct`.`type` ;
-
 CREATE TABLE IF NOT EXISTS `ct`.`type` (
   `id` INT NOT NULL COMMENT '',
   `description` VARCHAR(45) NOT NULL COMMENT '',
@@ -44,8 +40,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `ct`.`evaluation_category`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ct`.`evaluation_category` ;
-
 CREATE TABLE IF NOT EXISTS `ct`.`evaluation_category` (
   `id` INT NOT NULL COMMENT '',
   `name` VARCHAR(45) NOT NULL COMMENT '',
@@ -56,8 +50,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `ct`.`question`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ct`.`question` ;
-
 CREATE TABLE IF NOT EXISTS `ct`.`question` (
   `id` INT NOT NULL COMMENT '',
   `shortlabel` VARCHAR(10) NOT NULL COMMENT '',
@@ -92,8 +84,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `ct`.`citation_or_source`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ct`.`citation_or_source` ;
-
 CREATE TABLE IF NOT EXISTS `ct`.`citation_or_source` (
   `id` INT NOT NULL COMMENT '',
   `description` VARCHAR(1000) NOT NULL COMMENT '',
@@ -105,8 +95,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `ct`.`course`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ct`.`course` ;
-
 CREATE TABLE IF NOT EXISTS `ct`.`course` (
   `id` INT NOT NULL COMMENT '',
   `name` VARCHAR(45) NOT NULL COMMENT '',
@@ -120,8 +108,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `ct`.`strand`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ct`.`strand` ;
-
 CREATE TABLE IF NOT EXISTS `ct`.`strand` (
   `id` INT NOT NULL COMMENT '',
   `code` VARCHAR(2) NOT NULL COMMENT '',
@@ -140,8 +126,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `ct`.`overall_expectation`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ct`.`overall_expectation` ;
-
 CREATE TABLE IF NOT EXISTS `ct`.`overall_expectation` (
   `id` INT NOT NULL COMMENT '',
   `code` VARCHAR(2) NOT NULL COMMENT '',
@@ -161,8 +145,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `ct`.`minor_expectation`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ct`.`minor_expectation` ;
-
 CREATE TABLE IF NOT EXISTS `ct`.`minor_expectation` (
   `id` INT NOT NULL COMMENT '',
   `code` VARCHAR(2) NOT NULL COMMENT '',
@@ -181,8 +163,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `ct`.`question_has_citation_or_source`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ct`.`question_has_citation_or_source` ;
-
 CREATE TABLE IF NOT EXISTS `ct`.`question_has_citation_or_source` (
   `question_id` INT NOT NULL COMMENT '',
   `citation_or_source_id` INT NOT NULL COMMENT '',
@@ -205,8 +185,6 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `ct`.`question_has_minor_expectation`
 -- -----------------------------------------------------
-DROP TABLE IF EXISTS `ct`.`question_has_minor_expectation` ;
-
 CREATE TABLE IF NOT EXISTS `ct`.`question_has_minor_expectation` (
   `question_id` INT NOT NULL COMMENT '',
   `minor_expectation_id` INT NOT NULL COMMENT '',
