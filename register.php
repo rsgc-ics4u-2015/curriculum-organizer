@@ -40,7 +40,23 @@ if(isset($_POST['submit']))  {
         if (! $row = mysqli_fetch_assoc($result) ) {
 
             // Proceed with creating a user based on provided username
-            $message['username'] = "Ooh! We can create a user with that username. Just give us a sec while that logic is written.";
+            $hashed_password = password_hash($provided_password, PASSWORD_DEFAULT);
+            $query = "INSERT INTO author_or_editor (username, firstname, lastname, password, approved) VALUES ('" . $provided_username . "', '" . $provided_firstname . "', '" . $provided_lastname . "', '" . $hashed_password . "', false);";
+                                 
+                                 echo $query;
+            
+            // Check to see if query succeeded
+            if (! mysqli_query($connection, $query)) {
+                // Show an error message, something unexpected happened (query should succeed)
+                $message['general'] = "We could not create your account at this time. Please try again later.";
+            } else {
+                // All is well, re-direct to the courses page
+                $host  = $_SERVER['HTTP_HOST'];
+                $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
+                $extra = 'courses.php';
+                header("Location: http://$host$uri/$extra");
+                exit;
+            }
             
         } else {
             
@@ -94,6 +110,8 @@ if(isset($_POST['submit']))  {
     </form>
     
     <p>Note that new accounts will not be usable until approved by the system administrator.</p>
+    
+    <p><?php echo $message['general']; ?></p>
 
 </body>
 </html>
