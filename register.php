@@ -11,13 +11,43 @@ if(isset($_POST['submit']))  {
     
     // Verify that username, lastname, and password were provided. First name is optional.
     if (strlen($provided_username) == 0) {
-        $username_message = "Username is required.";
+        $message['username'] = "Username is required.";
     }
     if (strlen($provided_lastname) == 0) {
-        $lastname_message = "Last name is required.";
+        $message['lastname'] = "Last name is required.";
     }
     if (strlen($provided_password) == 0) {
-        $password_message = "A password is required.";
+        $message['password'] = "A password is required.";
+    }
+    
+    // If there were no errors on basic validation of input, proceed
+    if (!isset($message)) {
+        
+        // Connect to database
+        $host = "127.0.0.1";
+        $user = "rgordonatrsgc";
+        $pass = "";
+        $db = "ct";
+        $port = 3306;
+        
+        // Establish the connection
+        // (note username and password here is the *database* username and password, not for a user of this website)
+        $connection = mysqli_connect($host, $user, $pass, $db, $port) or die(mysql_error());
+        
+        // Verify that username not already created
+        $query = "SELECT * FROM author_or_editor WHERE username = '" . $provided_username . "';";
+        $result = mysqli_query($connection, $query);
+        if (! $row = mysqli_fetch_assoc($result) ) {
+
+            // Proceed with creating a user based on provided username
+            $message['username'] = "Ooh! We can create a user with that username. Just give us a sec while that logic is written.";
+            
+        } else {
+            
+            // Throw an error, user already exists with this username
+            $message['username'] = "That username is taken. Please select another.";
+        }
+
     }
 
 }
@@ -53,13 +83,13 @@ if(isset($_POST['submit']))  {
   
     <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
         Username:<br/>
-        <input type="text" name="username" value="" maxlength="45" size="45"> <?php echo $username_message; ?><br/><br/>
+        <input type="text" name="username" value="<?php echo $_POST['username'] ?>" maxlength="45" size="45"> <?php echo $message['username']; ?><br/><br/>
         First name:<br/>
-        <input type="text" name="firstname" value="" maxlength="45" size="45"> <?php echo $firstname_message; ?><br/><br/>
+        <input type="text" name="firstname" value="<?php echo $_POST['firstname'] ?>" maxlength="45" size="45"> <?php echo $message['firstname']; ?><br/><br/>
         Last name:<br/>
-        <input type="text" name="lastname" value="" maxlength="45" size="45"> <?php echo $lastname_message; ?><br/><br/>
+        <input type="text" name="lastname" value="<?php echo $_POST['lastname'] ?>" maxlength="45" size="45"> <?php echo $message['lastname']; ?><br/><br/>
         Password:<br/>
-        <input type="password" name="password" value="" maxlength="45" size="45"> <?php echo $password_message; ?><br/><br/>
+        <input type="password" name="password" value="<?php echo $_POST['password'] ?>" maxlength="45" size="45"> <?php echo $message['password']; ?><br/><br/>
         <input type="submit" name="submit" value="Create account">
     </form>
     
