@@ -65,7 +65,7 @@
 
     <p><?php echo $_SESSION['username']; ?></p>
 
-    <p><a href="logout.php">logout</a></a></p>
+    <p><a href="logout.php">logout</a></p>
 
     <h1>Courses</h1>
   
