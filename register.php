@@ -1,12 +1,12 @@
 <?php
 
-// If user is already logged in, re-direct to courses page.
+// If user is already logged in, re-direct to logged-in home page.
 session_start();
 if(isset($_SESSION['username']))
 {
     $host  = $_SERVER['HTTP_HOST'];
     $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-    $extra = 'courses.php';
+    $extra = 'home.php';
     header("Location: http://$host$uri/$extra");
     exit;
 }
@@ -61,10 +61,10 @@ if(isset($_POST['submit']))  {
                 // Show an error message, something unexpected happened (query should succeed)
                 $message['general'] = "We could not create your account at this time. Please try again later.";
             } else {
-                // All is well, re-direct to the courses page
+                // All is well, re-direct to the logged-in home page
                 $host  = $_SERVER['HTTP_HOST'];
                 $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-                $extra = 'courses.php';
+                $extra = 'home.php';
                 header("Location: http://$host$uri/$extra");
                 exit;
             }
