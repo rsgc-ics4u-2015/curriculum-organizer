@@ -26,14 +26,14 @@
     $connection = mysqli_connect($host, $user, $pass, $db, $port) or die(mysql_error());
     
     // And now perform simple query – make sure it's working
-    $query = "SELECT code, name FROM course;";
+    $query = "SELECT id, code, name FROM course;";
     $result = mysqli_query($connection, $query);
     
     // Iterate over the result set
     $output = "<ul>";
     while ($row = mysqli_fetch_assoc($result)) {
         $output .= "<li>";
-        $output .= $row['code'] . ": " . $row['name'];
+        $output .= "<a href=\"./courses/?cid=" . urlencode($row['id']) . "\">" . $row['code'] . ": " . $row['name'] . "</a>";
         $output .= "</li>";
     }
     $output .= "</ul>"
