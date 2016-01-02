@@ -15,18 +15,18 @@ session_start();
 if(!isset($_SESSION['username']))
 {
     // Not logged in, re-direct to the login page
-    redirect('../index.php');
+    redirect('../../index.php');
 }
 
 // This page should always be submitted with a GET request method
 // If it is not, redirect to logged in home page
 if(!isset($_GET['cid']))  {
 
-    redirect('../home.php');
+    redirect('../../home.php');
 
 } else {
     
-    // Get details for this course
+    // Get curriculum for this course
     // Connect to database
     $host = "127.0.0.1";
     $user = "rgordonatrsgc";
@@ -42,7 +42,7 @@ if(!isset($_GET['cid']))  {
     $provided_id = htmlspecialchars($_GET['cid']);
     
     // Run the query
-    $query = "SELECT id, code, url FROM course WHERE id = " . $provided_id . ";";
+    $query = "SELECT id, code FROM course WHERE id = " . $provided_id . ";";
     $result = mysqli_query($connection, $query);
     
     // Verify that a result was obtained from the database
@@ -50,31 +50,58 @@ if(!isset($_GET['cid']))  {
         
         // Something happened when talking to database, re-direct to logged-in home page
         // TODO: Implement proper error logging
-        redirect('../home.php');
+        redirect('../../home.php');
         
     } else {
+        
         if (mysqli_num_rows($result) != 1) {
             
             // This shouldn't happen either, course-id should exist and return a single row, so,
             // re-direct to logged-in home page
             // TODO: Implement proper error logging
-            redirect('../home.php');
+            redirect('../../home.php');
             
         } else {
             
             // We have a valid result for this course
             $row = mysqli_fetch_assoc($result);
             $course_code = $row['code'];
-            $course_url = $row['url'];
             $course_id = $row['id'];
-            
-            // Now get details on this course
-            $query = "SELECT code, url FROM course WHERE id = " . $provided_id . ";";
-            $result = mysqli_query($connection, $query);
 
-          
+            // Run query to get curriculum details for this course
+            $query = "SELECT id, code, title FROM strand WHERE course_id = " . $course_id . ";";
+            $result = mysqli_query($connection, $query);
+            
+            // Check for a result
+            if ($result == false) {
+                
+                // Something happened when talking to database, re-direct to logged-in home page
+                // TODO: Implement proper error logging
+                redirect('../../home.php');
+                
+            } else {
+                
+                if (mysqli_num_rows($result) > 0) {
+                    
+                    // Iterate over the result set
+                    $output = "";
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $output .= "<h2>";
+                        //$output .= "<a href=\"./course/?cid=" . urlencode($row['id']) . "\">" . $row['code'] . ": " . $row['name'] . "</a>";
+                        $output .= $row['code'] . " " . $row['title'];
+                        $output .= "</h2>";
+                    }
+            
+                } else {
+                    
+                    $output = "No curriculum expectations defined for this course.";
+                    
+                }
+            }
+
         }
     }
+
 
 }
 
@@ -102,20 +129,15 @@ if(!isset($_GET['cid']))  {
 <body>
     <script src="js/scripts.js"></script>
 
-    <p><a href="../home.php">Home</a> > <?php echo $course_code; ?></p>
+    <p><a href="../home.php">Home</a> > <a href="../?cid=<?php echo $course_id; ?>"><?php echo $course_code; ?></a> > Curriculum (list)</p>
 
     <p><?php echo $_SESSION['username']; ?></p>
 
     <p><a href="../logout.php">logout</a></p>
 
-    <p>
-        <ul>
-            <li>See Questions (xx so far)</li>        
-            <li><a href="./curriculum/?cid=<?php echo $course_id ?>">See Curriculum (xx expectations)</a></li>        
-        </ul>
-    </p>
-    
-    <p><a href="<?php echo $course_url; ?>">Canoninical Curriculum</a></p>
+    <h1>Curriculum</h1>
+
+    <p><?php echo $output; ?></p>
 
 </body>
 </html>

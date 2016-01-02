@@ -36,7 +36,7 @@
         $output .= "<a href=\"./course/?cid=" . urlencode($row['id']) . "\">" . $row['code'] . ": " . $row['name'] . "</a>";
         $output .= "</li>";
     }
-    $output .= "</ul>"
+    $output .= "</ul>";
 
 ?>
 
