@@ -15,18 +15,18 @@ session_start();
 if(!isset($_SESSION['username']))
 {
     // Not logged in, re-direct to the login page
-    redirect('../../index.php');
+    redirect('../../../index.php');
 }
 
 // This page should always be submitted with a GET request method
 // If it is not, redirect to logged in home page
 if(!isset($_GET['cid']))  {
 
-    redirect('../../home.php');
+    redirect('../../../home.php');
 
 } else {
     
-    // Get curriculum for this course
+    // Get information for this course
     // Connect to database
     $host = "127.0.0.1";
     $user = "rgordonatrsgc";
@@ -68,37 +68,6 @@ if(!isset($_GET['cid']))  {
             $course_code = $row['code'];
             $course_id = $row['id'];
 
-            // Run query to get curriculum details for this course
-            $query = "SELECT id, code, title FROM strand WHERE course_id = " . $course_id . ";";
-            $result = mysqli_query($connection, $query);
-            
-            // Check for a result
-            if ($result == false) {
-                
-                // Something happened when talking to database, re-direct to logged-in home page
-                // TODO: Implement proper error logging
-                redirect('../../home.php');
-                
-            } else {
-                
-                if (mysqli_num_rows($result) > 0) {
-                    
-                    // Iterate over the result set
-                    $output = "";
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        $output .= "<h2>";
-                        //$output .= "<a href=\"./course/?cid=" . urlencode($row['id']) . "\">" . $row['code'] . ": " . $row['name'] . "</a>";
-                        $output .= $row['code'] . " " . $row['title'];
-                        $output .= "</h2>";
-                    }
-            
-                } else {
-                    
-                    $output = "No curriculum expectations defined for this course.";
-                    
-                }
-            }
-
         }
     }
 
@@ -129,16 +98,26 @@ if(!isset($_GET['cid']))  {
 <body>
     <script src="js/scripts.js"></script>
 
-    <p><a href="../../home.php">Home</a> > <a href="../?cid=<?php echo $course_id; ?>"><?php echo $course_code; ?></a> > Curriculum (list)</p>
+    <p><a href="../../../home.php">Home</a> > <a href="../../?cid=<?php echo $course_id; ?>"><?php echo $course_code; ?></a> > <a href="../?cid=<?php echo $course_id; ?>">Curriculum</a> > Add...</p>
 
     <p><?php echo $_SESSION['username']; ?></p>
 
     <p><a href="../logout.php">logout</a></p>
 
-    <h1>Curriculum</h1>
-
-    <p><a href="./add/?cid=<?php echo $course_id; ?>">add</a></p>
-    <p><?php echo $output; ?></p>
+    <p>What type?</p>
+    <p>
+        <ul>
+            <li>
+                <a href="./strand.php?cid=<?php echo $course_id; ?>">Strand</a>
+            </li>
+            <li>
+                <a href="./overall.php?cid=<?php echo $course_id; ?>">Overall Expectation</a>
+            </li>
+            <li>
+                <a href="./minor.php?cid=<?php echo $course_id; ?>">Minor Expectation</a>
+            </li>
+        </ul>
+    </p>
 
 </body>
 </html>
