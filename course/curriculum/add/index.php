@@ -50,7 +50,7 @@ if(!isset($_GET['cid']))  {
         
         // Something happened when talking to database, re-direct to logged-in home page
         // TODO: Implement proper error logging
-        redirect('../../home.php');
+        redirect('../../../home.php');
         
     } else {
         
@@ -59,7 +59,7 @@ if(!isset($_GET['cid']))  {
             // This shouldn't happen either, course-id should exist and return a single row, so,
             // re-direct to logged-in home page
             // TODO: Implement proper error logging
-            redirect('../../home.php');
+            redirect('../../../home.php');
             
         } else {
             
