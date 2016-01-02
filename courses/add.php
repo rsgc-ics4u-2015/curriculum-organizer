@@ -43,8 +43,8 @@ if(isset($_POST['submit']))  {
     if (strlen($provided_code) > 8) {
         $message['code'] = "Code provided is too long, maximum length is 8 characters.";
     }
-    if (strlen($provided_description) > 255) {
-        $message['description'] = "Description provided is too long, maximum length is 255 characters.";
+    if (strlen($provided_description) > 1024) {
+        $message['description'] = "Description provided is too long, maximum length is 1024 characters.";
     }
     if (strlen($provided_url) > 2000) {
         $message['url'] = "URL provided is too long, maximum length is 2000 characters. ";
@@ -124,7 +124,7 @@ if(isset($_POST['submit']))  {
         Code:<br/>
         <input type="text" name="code" value="<?php echo $_POST['code'] ?>" maxlength="8" size="8"> <?php echo $message['code']; ?><br/><br/>
         Description:<br/>
-        <textarea name="description" cols="80" rows="8"><?php echo $_POST['description'] ?></textarea><?php echo $message['description']; ?><br/><br/>
+        <textarea name="description" cols="80" rows="8" maxlength="1024"><?php echo $_POST['description'] ?></textarea><?php echo $message['description']; ?><br/><br/>
         Canoninical curriculum URL:<br/>
         <input type="text" name="url" value="<?php echo $_POST['url'] ?>" maxlength="80" size="80"> <?php echo $message['url']; ?><br/><br/>
         <input type="submit" name="submit" value="Add">
