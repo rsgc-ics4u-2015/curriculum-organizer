@@ -88,7 +88,7 @@ if(!isset($_GET['cid']))  {
                     while ($row = mysqli_fetch_assoc($result)) {
                         $output .= "<h2>";
                         //$output .= "<a href=\"./course/?cid=" . urlencode($row['id']) . "\">" . $row['code'] . ": " . $row['name'] . "</a>";
-                        $output .= $row['code'] . " " . $row['title'];
+                        $output .= $row['code'] . ". " . $row['title'];
                         $output .= "</h2>";
                     }
             

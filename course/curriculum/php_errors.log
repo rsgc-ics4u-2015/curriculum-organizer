@@ -1,0 +1,24 @@
+[02-Jan-2016 20:20:38 UTC] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in /home/ubuntu/workspace/curriculum-tracker/course/curriculum/add/strand.php on line 105
+[02-Jan-2016 20:20:38 UTC] PHP Stack trace:
+[02-Jan-2016 20:20:38 UTC] PHP   1. {main}() /home/ubuntu/workspace/curriculum-tracker/course/curriculum/add/strand.php:0
+[02-Jan-2016 20:20:38 UTC] PHP   2. mysqli_query() /home/ubuntu/workspace/curriculum-tracker/course/curriculum/add/strand.php:105
+[02-Jan-2016 20:21:20 UTC] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in /home/ubuntu/workspace/curriculum-tracker/course/curriculum/add/strand.php on line 105
+[02-Jan-2016 20:21:20 UTC] PHP Stack trace:
+[02-Jan-2016 20:21:20 UTC] PHP   1. {main}() /home/ubuntu/workspace/curriculum-tracker/course/curriculum/add/strand.php:0
+[02-Jan-2016 20:21:20 UTC] PHP   2. mysqli_query() /home/ubuntu/workspace/curriculum-tracker/course/curriculum/add/strand.php:105
+[02-Jan-2016 20:26:38 UTC] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in /home/ubuntu/workspace/curriculum-tracker/course/curriculum/add/strand.php on line 102
+[02-Jan-2016 20:26:38 UTC] PHP Stack trace:
+[02-Jan-2016 20:26:38 UTC] PHP   1. {main}() /home/ubuntu/workspace/curriculum-tracker/course/curriculum/add/strand.php:0
+[02-Jan-2016 20:26:38 UTC] PHP   2. mysqli_query() /home/ubuntu/workspace/curriculum-tracker/course/curriculum/add/strand.php:102
+[02-Jan-2016 20:28:31 UTC] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in /home/ubuntu/workspace/curriculum-tracker/course/curriculum/add/strand.php on line 102
+[02-Jan-2016 20:28:31 UTC] PHP Stack trace:
+[02-Jan-2016 20:28:31 UTC] PHP   1. {main}() /home/ubuntu/workspace/curriculum-tracker/course/curriculum/add/strand.php:0
+[02-Jan-2016 20:28:31 UTC] PHP   2. mysqli_query() /home/ubuntu/workspace/curriculum-tracker/course/curriculum/add/strand.php:102
+[02-Jan-2016 20:29:58 UTC] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in /home/ubuntu/workspace/curriculum-tracker/course/curriculum/add/strand.php on line 102
+[02-Jan-2016 20:29:58 UTC] PHP Stack trace:
+[02-Jan-2016 20:29:58 UTC] PHP   1. {main}() /home/ubuntu/workspace/curriculum-tracker/course/curriculum/add/strand.php:0
+[02-Jan-2016 20:29:58 UTC] PHP   2. mysqli_query() /home/ubuntu/workspace/curriculum-tracker/course/curriculum/add/strand.php:102
+[02-Jan-2016 20:30:26 UTC] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in /home/ubuntu/workspace/curriculum-tracker/course/curriculum/add/strand.php on line 102
+[02-Jan-2016 20:30:26 UTC] PHP Stack trace:
+[02-Jan-2016 20:30:26 UTC] PHP   1. {main}() /home/ubuntu/workspace/curriculum-tracker/course/curriculum/add/strand.php:0
+[02-Jan-2016 20:30:26 UTC] PHP   2. mysqli_query() /home/ubuntu/workspace/curriculum-tracker/course/curriculum/add/strand.php:102
