@@ -33,7 +33,7 @@
     $output = "<ul>";
     while ($row = mysqli_fetch_assoc($result)) {
         $output .= "<li>";
-        $output .= "<a href=\"./courses/?cid=" . urlencode($row['id']) . "\">" . $row['code'] . ": " . $row['name'] . "</a>";
+        $output .= "<a href=\"./course/?cid=" . urlencode($row['id']) . "\">" . $row['code'] . ": " . $row['name'] . "</a>";
         $output .= "</li>";
     }
     $output .= "</ul>"
@@ -69,7 +69,7 @@
 
     <h1>Courses</h1>
 
-    <p><a href="courses/add.php">add</a></p>
+    <p><a href="course/add.php">add</a></p>
   
     <?php echo $output ?>
   
