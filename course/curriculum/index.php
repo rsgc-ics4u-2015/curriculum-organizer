@@ -9,6 +9,31 @@ function redirect($page) {
     exit;
 }
 
+// get_overall_expectations
+// Purpose: Poll the overall expectations table and get all expectations for the given strand id
+//
+//          $db_connection  - The active database connection.
+//          $sid            - The id for this strand, from the strands table.
+//          $scode          - The code for the given strand, e.g.: A, B, C...
+function get_overall_expectations($db_connection, $sid, $scode) {
+    
+    // Get strands for this course
+    $query = "SELECT id, code, title, description FROM overall_expectation WHERE strand_id = " . $sid . ";";
+    $result = mysqli_query($db_connection, $query);
+    
+    // Iterate over the result set
+    $output = "";
+    while ($row = mysqli_fetch_assoc($result)) {
+        $output .= "\t\t\t<h3>" . $scode . $row['code'] . ". " . $row['title'] . "</h3>\n";
+        $output .= "\t\t\t<p>" . $row['description'] . "</p>\n";
+    }
+
+    // Return the generated HTML
+    return($output);
+    
+}
+
+
 // Check whether session created (is user logged in?)
 // If not, re-direct to main index page.
 session_start();
@@ -86,10 +111,13 @@ if(!isset($_GET['cid']))  {
                     // Iterate over the result set
                     $output = "";
                     while ($row = mysqli_fetch_assoc($result)) {
-                        $output .= "<h2>";
+                        $output .= "\t\t<h2>";
                         //$output .= "<a href=\"./course/?cid=" . urlencode($row['id']) . "\">" . $row['code'] . ": " . $row['name'] . "</a>";
                         $output .= $row['code'] . ". " . $row['title'];
-                        $output .= "</h2>";
+                        $output .= "</h2>\n";
+                        
+                        // Now get the overall expectations for this strand id
+                        $output .= get_overall_expectations($connection, $row['id'], $row['code']);
                     }
             
                 } else {
@@ -138,7 +166,9 @@ if(!isset($_GET['cid']))  {
     <h1>Curriculum</h1>
 
     <p><a href="./add/?cid=<?php echo $course_id; ?>">add</a></p>
-    <p><?php echo $output; ?></p>
+    <p>
+<?php echo $output; ?>
+    </p>
 
 </body>
 </html>
