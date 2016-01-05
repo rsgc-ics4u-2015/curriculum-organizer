@@ -26,6 +26,10 @@ function get_overall_expectations($db_connection, $sid, $scode) {
     while ($row = mysqli_fetch_assoc($result)) {
         $output .= "\t\t\t<h3>" . $scode . $row['code'] . ". " . $row['title'] . "</h3>\n";
         $output .= "\t\t\t<p>" . $row['description'] . "</p>\n";
+
+        // Now get the minor expectations for this overall expectation id
+        $output .= get_minor_expectations($db_connection, $scode, $row['id'], $row['code']);
+
     }
 
     // Return the generated HTML
@@ -33,6 +37,30 @@ function get_overall_expectations($db_connection, $sid, $scode) {
     
 }
 
+// get_minor_expectations
+// Purpose: Poll the minor expectations table and get all expectations for the given overall expectation id
+//
+//          $db_connection  - The active database connection.
+//          $scode          - The code for the given strand, e.g.: A, B, C...
+//          $oid            - The id for this overall expectation, from the overall_expectation table.
+//          $ocode          - The code for the given overall expectation, e.g.: A, B, C...
+function get_minor_expectations($db_connection, $scode, $oid, $ocode) {
+    
+    // Get strands for this course
+    $query = "SELECT code, description FROM minor_expectation WHERE overall_expectation_id = " . $oid . ";";
+    $result = mysqli_query($db_connection, $query);
+    
+    // Iterate over the result set
+    $output = "";
+    while ($row = mysqli_fetch_assoc($result)) {
+        $output .= "\t\t\t\t<h4>" . $scode . $ocode . "." . $row['code'] . "</h3>\n";
+        $output .= "\t\t\t\t<p>" . $row['description'] . "</p>\n";
+    }
+
+    // Return the generated HTML
+    return($output);
+    
+}
 
 // Check whether session created (is user logged in?)
 // If not, re-direct to main index page.
