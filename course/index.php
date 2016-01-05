@@ -78,6 +78,9 @@ if(!isset($_GET['cid']))  {
 
 }
 
+// Generate the CSS file link
+$base = "http://" . $_SERVER['HTTP_HOST'] . "/curriculum-tracker/";
+$csslink = $base . "css/style.css";
 
 ?>
 
@@ -89,7 +92,7 @@ if(!isset($_GET['cid']))  {
 
   <title>Curriculum Tracker</title>
 
-  <link rel="stylesheet" href="css/styles.css?v=1.0">
+  <link rel="stylesheet" href="<?php echo $csslink; ?>?v=1.0">
 
   <!--[if lt IE 9]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -102,20 +105,24 @@ if(!isset($_GET['cid']))  {
 <body>
     <script src="js/scripts.js"></script>
 
-    <nav><a href="../home.php">Home</a> > <?php echo $course_code; ?></nav>
-
-    <p><?php echo $_SESSION['username']; ?></p>
-
-    <p><a href="../logout.php">logout</a></p>
-
-    <p>
+    <nav>
         <ul>
-            <li>See Questions (xx so far)</li>        
-            <li><a href="./curriculum/?cid=<?php echo $course_id ?>">See Curriculum (xx expectations)</a></li>        
+            <li><a href="../home.php">Home</a> > <?php echo $course_code; ?></li>
+            <li><a href="<?php echo $base; ?>logout.php">logout</a></li>
+            <li><?php echo $_SESSION['username']; ?></li>
         </ul>
-    </p>
-    
-    <p><a href="<?php echo $course_url; ?>">Canoninical Curriculum</a></p>
+    </nav>
+
+    <main>
+        <p>
+            <ul>
+                <li>See Questions (xx so far)</li>        
+                <li><a href="./curriculum/?cid=<?php echo $course_id ?>">See Curriculum (xx expectations)</a></li>        
+            </ul>
+        </p>
+        
+        <p><a href="<?php echo $course_url; ?>">Canoninical Curriculum</a></p>
+    </main>
 
 </body>
 </html>

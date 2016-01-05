@@ -74,6 +74,9 @@ if(!isset($_GET['cid']))  {
 
 }
 
+// Generate the CSS file link
+$base = "http://" . $_SERVER['HTTP_HOST'] . "/curriculum-tracker/";
+$csslink = $base . "css/style.css";
 
 ?>
 
@@ -85,7 +88,7 @@ if(!isset($_GET['cid']))  {
 
   <title>Curriculum Tracker</title>
 
-  <link rel="stylesheet" href="css/styles.css?v=1.0">
+  <link rel="stylesheet" href="<?php echo $csslink; ?>?v=1.0">
 
   <!--[if lt IE 9]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -98,26 +101,31 @@ if(!isset($_GET['cid']))  {
 <body>
     <script src="js/scripts.js"></script>
 
-    <nav><a href="../../../home.php">Home</a> > <a href="../../?cid=<?php echo $course_id; ?>"><?php echo $course_code; ?></a> > <a href="../?cid=<?php echo $course_id; ?>">Curriculum</a> > Add...</nav>
-
-    <p><?php echo $_SESSION['username']; ?></p>
-
-    <p><a href="../logout.php">logout</a></p>
-
-    <p>What type?</p>
-    <p>
+    <nav>
         <ul>
-            <li>
-                <a href="./strand.php?cid=<?php echo $course_id; ?>">Strand</a>
-            </li>
-            <li>
-                <a href="./overall.php?cid=<?php echo $course_id; ?>">Overall Expectation</a>
-            </li>
-            <li>
-                <a href="./minor.php?cid=<?php echo $course_id; ?>">Minor Expectation</a>
-            </li>
+            <li><a href="../../../home.php">Home</a> > <a href="../../?cid=<?php echo $course_id; ?>"><?php echo $course_code; ?></a> > <a href="../?cid=<?php echo $course_id; ?>">Curriculum</a> > Add...</li>
+            <li><a href="<?php echo $base; ?>logout.php">logout</a></li>
+            <li><?php echo $_SESSION['username']; ?></li>
         </ul>
-    </p>
+    </nav>
+
+    <main>
+        <p>What type?</p>
+        <p>
+            <ul>
+                <li>
+                    <a href="./strand.php?cid=<?php echo $course_id; ?>">Strand</a>
+                </li>
+                <li>
+                    <a href="./overall.php?cid=<?php echo $course_id; ?>">Overall Expectation</a>
+                </li>
+                <li>
+                    <a href="./minor.php?cid=<?php echo $course_id; ?>">Minor Expectation</a>
+                </li>
+            </ul>
+        </p>
+    </main>
+
 
 </body>
 </html>

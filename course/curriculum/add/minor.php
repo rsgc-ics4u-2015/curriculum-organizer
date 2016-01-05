@@ -196,6 +196,9 @@ if(!isset($_GET['cid']) && !isset($_POST['cid']))  {
     
 }
 
+// Generate the CSS file link
+$base = "http://" . $_SERVER['HTTP_HOST'] . "/curriculum-tracker/";
+$csslink = $base . "css/style.css";
 
 ?>
 
@@ -207,7 +210,7 @@ if(!isset($_GET['cid']) && !isset($_POST['cid']))  {
 
   <title>Curriculum Tracker</title>
 
-  <link rel="stylesheet" href="css/styles.css?v=1.0">
+  <link rel="stylesheet" href="<?php echo $csslink; ?>?v=1.0">
 
   <!--[if lt IE 9]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -220,24 +223,27 @@ if(!isset($_GET['cid']) && !isset($_POST['cid']))  {
 <body>
     <script src="js/scripts.js"></script>
 
-    <nav><a href="../../../home.php">Home</a> > <a href="../../?cid=<?php echo $course_id; ?>"><?php echo $course_code; ?></a> > <a href="../?cid=<?php echo $course_id; ?>">Curriculum</a> > Add minor expectation...</nav>
+    <nav>
+        <ul>
+            <li><a href="../../../home.php">Home</a> > <a href="../../?cid=<?php echo $course_id; ?>"><?php echo $course_code; ?></a> > <a href="../?cid=<?php echo $course_id; ?>">Curriculum</a> > Add minor expectation...</li>
+            <li><a href="<?php echo $base; ?>logout.php">logout</a></li>
+            <li><?php echo $_SESSION['username']; ?></li>
+        </ul>
+    </nav>
 
-    <p><?php echo $_SESSION['username']; ?></p>
-
-    <p><a href="../logout.php">logout</a></p>
-
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-        Add to overall expectation:<br/>
-        <?php echo $overall_expectations_dropdown_output; ?>
-        Code:<br/>
-        <input type="text" name="code" value="<?php echo $_POST['code'] ?>" maxlength="2" size="2"> <?php echo $message['code']; ?><br/><br/>
-        Description:<br/>
-        <textarea name="description" cols="80" rows="8" maxlength="1000"><?php echo $_POST['description'] ?></textarea><br/><?php echo $message['description']; ?><br/><br/>
-        <input type="hidden" name="cid" value="<?php echo $course_id; ?>">
-        <input type="submit" name="submit" value="Add">
-    </form>
+    <main>
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+            Add to overall expectation:<br/>
+            <?php echo $overall_expectations_dropdown_output; ?>
+            Code:<br/>
+            <input type="text" name="code" value="<?php echo $_POST['code'] ?>" maxlength="2" size="2"> <?php echo $message['code']; ?><br/><br/>
+            Description:<br/>
+            <textarea name="description" cols="80" rows="8" maxlength="1000"><?php echo $_POST['description'] ?></textarea><br/><?php echo $message['description']; ?><br/><br/>
+            <input type="hidden" name="cid" value="<?php echo $course_id; ?>">
+            <input type="submit" name="submit" value="Add">
+        </form>
+        <p><?php echo $message['general']; ?></p>
+    </main>
     
-    <p><?php echo $message['general']; ?></p>
-
 </body>
 </html>

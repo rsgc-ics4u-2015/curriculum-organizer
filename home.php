@@ -38,6 +38,11 @@
     }
     $output .= "</ul>";
 
+
+// Generate the CSS file link
+$base = "http://" . $_SERVER['HTTP_HOST'] . "/curriculum-tracker/";
+$csslink = $base . "css/style.css";
+
 ?>
 
 <!doctype html>
@@ -48,7 +53,7 @@
 
   <title>Curriculum Tracker</title>
 
-  <link rel="stylesheet" href="css/styles.css?v=1.0">
+  <link rel="stylesheet" href="<?php echo $csslink; ?>?v=1.0">
 
   <!--[if lt IE 9]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -61,17 +66,21 @@
 <body>
     <script src="js/scripts.js"></script>
 
-    <nav>Home</nav>
+    <nav>
+        <ul>
+            <li>Home</li>
+            <li><a href="<?php echo $base; ?>logout.php">logout</a></li>
+            <li><?php echo $_SESSION['username']; ?></li>
+        </ul>
+    </nav>
 
-    <p><?php echo $_SESSION['username']; ?></p>
-
-    <p><a href="logout.php">logout</a></p>
-
-    <h1>Courses</h1>
-
-    <p><a href="course/add.php">add</a></p>
-  
-    <?php echo $output ?>
+    <main>
+        <h1>Courses</h1>
+    
+        <p><a href="course/add.php">add</a></p>
+      
+        <?php echo $output ?>
+    </main>
   
 </body>
 </html>

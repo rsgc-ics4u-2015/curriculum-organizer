@@ -79,7 +79,9 @@ if(isset($_POST['submit']))  {
 
 }
 
-
+// Generate the CSS file link
+$base = "http://" . $_SERVER['HTTP_HOST'] . "/curriculum-tracker/";
+$csslink = $base . "css/style.css";
 
 ?>
 
@@ -91,7 +93,7 @@ if(isset($_POST['submit']))  {
 
   <title>Curriculum Tracker</title>
 
-  <link rel="stylesheet" href="css/styles.css?v=1.0">
+  <link rel="stylesheet" href="<?php echo $csslink; ?>?v=1.0">
 
   <!--[if lt IE 9]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -104,25 +106,28 @@ if(isset($_POST['submit']))  {
 <body>
     <script src="js/scripts.js"></script>
 
-  <h1>Register</h1>
-  
-  <p>Create a new account:</p>
-  
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-        Username:<br/>
-        <input type="text" name="username" value="<?php echo $_POST['username'] ?>" maxlength="45" size="45"> <?php echo $message['username']; ?><br/><br/>
-        First name:<br/>
-        <input type="text" name="firstname" value="<?php echo $_POST['firstname'] ?>" maxlength="45" size="45"> <?php echo $message['firstname']; ?><br/><br/>
-        Last name:<br/>
-        <input type="text" name="lastname" value="<?php echo $_POST['lastname'] ?>" maxlength="45" size="45"> <?php echo $message['lastname']; ?><br/><br/>
-        Password:<br/>
-        <input type="password" name="password" value="<?php echo $_POST['password'] ?>" maxlength="45" size="45"> <?php echo $message['password']; ?><br/><br/>
-        <input type="submit" name="submit" value="Create account">
-    </form>
-    
-    <p>Note that new accounts will not be usable until approved by the system administrator.</p>
-    
-    <p><?php echo $message['general']; ?></p>
+    <main>
+        <h1>Register</h1>
+        
+        <p>Create a new account:</p>
+        
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+            Username:<br/>
+            <input type="text" name="username" value="<?php echo $_POST['username'] ?>" maxlength="45" size="45"> <?php echo $message['username']; ?><br/><br/>
+            First name:<br/>
+            <input type="text" name="firstname" value="<?php echo $_POST['firstname'] ?>" maxlength="45" size="45"> <?php echo $message['firstname']; ?><br/><br/>
+            Last name:<br/>
+            <input type="text" name="lastname" value="<?php echo $_POST['lastname'] ?>" maxlength="45" size="45"> <?php echo $message['lastname']; ?><br/><br/>
+            Password:<br/>
+            <input type="password" name="password" value="<?php echo $_POST['password'] ?>" maxlength="45" size="45"> <?php echo $message['password']; ?><br/><br/>
+            <input type="submit" name="submit" value="Create account">
+        </form>
+        
+        <p>Note that new accounts will not be usable until approved by the system administrator.</p>
+        
+        <p><?php echo $message['general']; ?></p>
+    </main>
+
 
 </body>
 </html>

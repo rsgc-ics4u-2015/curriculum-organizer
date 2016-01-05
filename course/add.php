@@ -89,6 +89,10 @@ if(isset($_POST['submit']))  {
     
 }
 
+// Generate the CSS file link
+$base = "http://" . $_SERVER['HTTP_HOST'] . "/curriculum-tracker/";
+$csslink = $base . "css/style.css";
+
 ?>
 
 <!doctype html>
@@ -99,7 +103,7 @@ if(isset($_POST['submit']))  {
 
   <title>Curriculum Tracker</title>
 
-  <link rel="stylesheet" href="css/styles.css?v=1.0">
+  <link rel="stylesheet" href="<?php echo $csslink; ?>?v=1.0">
 
   <!--[if lt IE 9]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -112,25 +116,29 @@ if(isset($_POST['submit']))  {
 <body>
     <script src="js/scripts.js"></script>
 
-    <nav><a href="../home.php">Home</a> > Add Course...</nav>
+    <nav>
+        <ul>
+            <li><a href="../home.php">Home</a> > Add Course...</li>
+            <li><a href="<?php echo $base; ?>logout.php">logout</a></li>
+            <li><?php echo $_SESSION['username']; ?></li>
+        </ul>
+    </nav>
 
-    <p><?php echo $_SESSION['username']; ?></p>
-
-    <p><a href="../logout.php">logout</a></p>
-
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-        Name:<br/>
-        <input type="text" name="name" value="<?php echo $_POST['name'] ?>" maxlength="45" size="45"> <?php echo $message['name']; ?><br/><br/>
-        Code:<br/>
-        <input type="text" name="code" value="<?php echo $_POST['code'] ?>" maxlength="8" size="8"> <?php echo $message['code']; ?><br/><br/>
-        Description:<br/>
-        <textarea name="description" cols="80" rows="8" maxlength="1024"><?php echo $_POST['description'] ?></textarea><?php echo $message['description']; ?><br/><br/>
-        Canoninical curriculum URL:<br/>
-        <input type="text" name="url" value="<?php echo $_POST['url'] ?>" maxlength="80" size="80"> <?php echo $message['url']; ?><br/><br/>
-        <input type="submit" name="submit" value="Add">
-    </form>
-    
-    <p><?php echo $message['general']; ?></p>
+    <main>
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+            Name:<br/>
+            <input type="text" name="name" value="<?php echo $_POST['name'] ?>" maxlength="45" size="45"> <?php echo $message['name']; ?><br/><br/>
+            Code:<br/>
+            <input type="text" name="code" value="<?php echo $_POST['code'] ?>" maxlength="8" size="8"> <?php echo $message['code']; ?><br/><br/>
+            Description:<br/>
+            <textarea name="description" cols="80" rows="8" maxlength="1024"><?php echo $_POST['description'] ?></textarea><?php echo $message['description']; ?><br/><br/>
+            Canoninical curriculum URL:<br/>
+            <input type="text" name="url" value="<?php echo $_POST['url'] ?>" maxlength="80" size="80"> <?php echo $message['url']; ?><br/><br/>
+            <input type="submit" name="submit" value="Add">
+        </form>
+        
+        <p><?php echo $message['general']; ?></p>
+    </main>
 
 </body>
 </html>

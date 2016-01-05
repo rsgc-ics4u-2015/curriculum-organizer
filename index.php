@@ -50,6 +50,10 @@ if(isset($_POST['submit']))  {
     
 }
 
+// Generate the CSS file link
+$base = "http://" . $_SERVER['HTTP_HOST'] . "/curriculum-tracker/";
+$csslink = $base . "css/style.css";
+
 ?>
 
 <!doctype html>
@@ -60,7 +64,7 @@ if(isset($_POST['submit']))  {
 
   <title>Curriculum Tracker</title>
 
-  <link rel="stylesheet" href="css/styles.css?v=1.0">
+  <link rel="stylesheet" href="<?php echo $csslink; ?>?v=1.0">
 
   <!--[if lt IE 9]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -73,19 +77,21 @@ if(isset($_POST['submit']))  {
 <body>
     <script src="js/scripts.js"></script>
 
-    <h1>Curriculum Tracker</h1>
-  
-    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-        Username:<br/>
-        <input type="text" name="username" value="<?php echo $_POST['username'] ?>" maxlength="45" size="45"> <?php echo $message['username']; ?><br/><br/>
-        Password:<br/>
-        <input type="password" name="password" value="<?php echo $_POST['password'] ?>" maxlength="45" size="45"> <?php echo $message['password']; ?><br/><br/>
-        <input type="submit" name="submit" value="Login">
-    </form>
-  
-    <p>... or, <a href="register.php">create a new account</a>.</p>
-
-    <p><?php echo $message['general']; ?></p>
+    <main>
+        <h1>Curriculum Tracker</h1>
+      
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+            Username:<br/>
+            <input type="text" name="username" value="<?php echo $_POST['username'] ?>" maxlength="45" size="45"> <?php echo $message['username']; ?><br/><br/>
+            Password:<br/>
+            <input type="password" name="password" value="<?php echo $_POST['password'] ?>" maxlength="45" size="45"> <?php echo $message['password']; ?><br/><br/>
+            <input type="submit" name="submit" value="Login">
+        </form>
+      
+        <p>... or, <a href="register.php">create a new account</a>.</p>
+    
+        <p><?php echo $message['general']; ?></p>
+    </main>
   
 </body>
 </html>
