@@ -81,7 +81,7 @@ $csslink = $base . "css/style.css";
     </nav>
 
     <main>
-        <p><a href="course/add.php">add</a></p>
+        <p><a href="course/add.php">add a course</a></p>
 
         <?php echo $output ?>
 
