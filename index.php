@@ -77,6 +77,12 @@ $csslink = $base . "css/style.css";
 <body>
     <script src="js/scripts.js"></script>
 
+    <header>
+        <ul>
+            <li><img src="<?php echo $base; ?>images/logo-small.png"/></li>
+        </ul>
+    </header>
+
     <main>
         <h1>Curriculum Tracker</h1>
       

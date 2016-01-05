@@ -105,6 +105,12 @@ $csslink = $base . "css/style.css";
 <body>
     <script src="js/scripts.js"></script>
 
+    <header>
+        <ul>
+            <li><img src="<?php echo $base; ?>images/logo-small.png"/></li>
+        </ul>
+    </header>
+
     <nav>
         <ul>
             <li><a href="../home.php">Home</a> > <?php echo $course_code; ?></li>

@@ -12,6 +12,24 @@ form {
     margin-top: 21.44px;
 }
 
+header > ul {
+    margin: 0px;
+    padding: 5px;
+    border: 0px
+}
+
+header ul li {
+    list-style: none;
+    display: inline;
+}
+
+header {
+    background-color: #333399;
+    margin: 0px;
+    padding: 0px;
+    border: 0px
+}
+
 nav ul li:first-child { 
     float: left;
 }
