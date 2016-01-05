@@ -113,20 +113,16 @@ $csslink = $base . "css/style.css";
     </header>
 
     <main>
-        <h1>Register</h1>
-        
-        <p>Create a new account:</p>
-        
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-            Username:<br/>
+            Select a username:<br/>
             <input type="text" name="username" value="<?php echo $_POST['username'] ?>" maxlength="45" size="45"> <?php echo $message['username']; ?><br/><br/>
             First name:<br/>
             <input type="text" name="firstname" value="<?php echo $_POST['firstname'] ?>" maxlength="45" size="45"> <?php echo $message['firstname']; ?><br/><br/>
             Last name:<br/>
             <input type="text" name="lastname" value="<?php echo $_POST['lastname'] ?>" maxlength="45" size="45"> <?php echo $message['lastname']; ?><br/><br/>
-            Password:<br/>
+            Select a password:<br/>
             <input type="password" name="password" value="<?php echo $_POST['password'] ?>" maxlength="45" size="45"> <?php echo $message['password']; ?><br/><br/>
-            <input type="submit" name="submit" value="Create account">
+            <input type="submit" name="submit" value="Create new account">
         </form>
         
         <p>Note that new accounts will not be usable until approved by the system administrator.</p>

@@ -230,7 +230,7 @@ $csslink = $base . "css/style.css";
 
     <nav>
         <ul>
-            <li><a href="../../../home.php">Home</a> > <a href="../../?cid=<?php echo $course_id; ?>"><?php echo $course_code; ?></a> > <a href="../?cid=<?php echo $course_id; ?>">Curriculum</a> > Add overall expectation...</li>
+            <li><a href="../../../home.php">Home</a> > <a href="../../?cid=<?php echo $course_id; ?>"><?php echo $course_code; ?></a> > <a href="../?cid=<?php echo $course_id; ?>">Curriculum</a> > <a href="./?cid=<?php echo $course_id; ?>">Add</a> > Overall expectation...</li>
             <li><a href="<?php echo $base; ?>logout.php">logout</a></li>
             <li><?php echo $_SESSION['username']; ?></li>
         </ul>

@@ -41,7 +41,7 @@ nav ul li {
 }
 
 nav {
-    height: 2em;
+    height: 1.9em;
     padding-top: 12px;
     padding-left: 10px;
     border-bottom: 1px black solid;
@@ -56,5 +56,26 @@ nav > ul {
 }
 
 main {
-    margin-left: 10px;
+    padding-top: 5px;
+    margin-left: 20px;
+}
+
+/* unvisited link */
+a:link {
+    color: #333399;
+}
+
+/* visited link */
+a:visited {
+    color: #333399;
+}
+
+/* mouse over link */
+a:hover {
+    color: #B9002A;
+}
+
+/* selected link */
+a:active {
+    color: #333399;
 }

@@ -203,8 +203,6 @@ $csslink = $base . "css/style.css";
     </nav>
 
     <main>
-        <h1>Curriculum</h1>
-    
         <p><a href="./add/?cid=<?php echo $course_id; ?>">add</a></p>
         <p>
     <?php echo $output; ?>
