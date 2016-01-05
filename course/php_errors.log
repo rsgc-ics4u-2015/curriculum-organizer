@@ -1,7 +1,0 @@
-[02-Jan-2016 19:31:38 UTC] PHP Parse error:  syntax error, unexpected '}' in /home/ubuntu/workspace/curriculum-tracker/course/curriculum/index.php on line 99
-[04-Jan-2016 18:48:07 UTC] PHP Fatal error:  Call to undefined function get_overall_expectations() in /home/ubuntu/workspace/curriculum-tracker/course/curriculum/index.php on line 120
-[04-Jan-2016 18:48:07 UTC] PHP Stack trace:
-[04-Jan-2016 18:48:07 UTC] PHP   1. {main}() /home/ubuntu/workspace/curriculum-tracker/course/curriculum/index.php:0
-[04-Jan-2016 18:48:18 UTC] PHP Fatal error:  Call to undefined function get_overall_expectations() in /home/ubuntu/workspace/curriculum-tracker/course/curriculum/index.php on line 120
-[04-Jan-2016 18:48:19 UTC] PHP Stack trace:
-[04-Jan-2016 18:48:19 UTC] PHP   1. {main}() /home/ubuntu/workspace/curriculum-tracker/course/curriculum/index.php:0
