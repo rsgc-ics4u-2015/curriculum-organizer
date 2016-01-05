@@ -47,7 +47,7 @@ function get_overall_expectations($db_connection, $sid, $scode) {
 function get_minor_expectations($db_connection, $scode, $oid, $ocode) {
     
     // Get strands for this course
-    $query = "SELECT code, description FROM minor_expectation WHERE overall_expectation_id = " . $oid . ";";
+    $query = "SELECT code, description FROM minor_expectation WHERE overall_expectation_id = " . $oid . " ORDER BY code ASC;";
     $result = mysqli_query($db_connection, $query);
     
     // Iterate over the result set
