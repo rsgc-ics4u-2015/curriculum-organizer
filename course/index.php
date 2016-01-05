@@ -102,7 +102,7 @@ if(!isset($_GET['cid']))  {
 <body>
     <script src="js/scripts.js"></script>
 
-    <p><a href="../home.php">Home</a> > <?php echo $course_code; ?></p>
+    <nav><a href="../home.php">Home</a> > <?php echo $course_code; ?></nav>
 
     <p><?php echo $_SESSION['username']; ?></p>
 

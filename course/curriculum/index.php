@@ -185,7 +185,7 @@ if(!isset($_GET['cid']))  {
 <body>
     <script src="js/scripts.js"></script>
 
-    <p><a href="../../home.php">Home</a> > <a href="../?cid=<?php echo $course_id; ?>"><?php echo $course_code; ?></a> > Curriculum (list)</p>
+    <nav><a href="../../home.php">Home</a> > <a href="../?cid=<?php echo $course_id; ?>"><?php echo $course_code; ?></a> > Curriculum (list)</nav>
 
     <p><?php echo $_SESSION['username']; ?></p>
 

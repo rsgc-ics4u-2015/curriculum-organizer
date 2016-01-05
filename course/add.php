@@ -112,7 +112,7 @@ if(isset($_POST['submit']))  {
 <body>
     <script src="js/scripts.js"></script>
 
-    <p>Home > Add Course...</p>
+    <nav><a href="../home.php">Home</a> > Add Course...</nav>
 
     <p><?php echo $_SESSION['username']; ?></p>
 

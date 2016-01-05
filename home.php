@@ -61,7 +61,7 @@
 <body>
     <script src="js/scripts.js"></script>
 
-    <p>Home</p>
+    <nav>Home</nav>
 
     <p><?php echo $_SESSION['username']; ?></p>
 
