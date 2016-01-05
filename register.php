@@ -80,7 +80,7 @@ if(isset($_POST['submit']))  {
 }
 
 // Generate the CSS file link
-$base = "http://" . $_SERVER['HTTP_HOST'] . "/curriculum-tracker/";
+$base = "http://" . $_SERVER['HTTP_HOST'] . "/curriculum-organizer/";
 $csslink = $base . "css/style.css";
 
 ?>
@@ -91,7 +91,7 @@ $csslink = $base . "css/style.css";
 <head>
   <meta charset="utf-8">
 
-  <title>Curriculum Tracker</title>
+  <title>Curriculum Organizer</title>
 
   <link rel="stylesheet" href="<?php echo $csslink; ?>?v=1.0">
 
