@@ -180,7 +180,6 @@ if(!isset($_GET['cid']) && !isset($_POST['cid']))  {
         // We have a valid result for this course
         $query = "INSERT INTO overall_expectation (strand_id, code, title, description)
                                            VALUES (" . $provided_strand_id . ", '" . $provided_code . "', '" . $provided_title . "', '" . $provided_description . "');";
-        print_r($query);
 
         // Check to see if query succeeded
         if (! mysqli_query($connection, $query)) {
