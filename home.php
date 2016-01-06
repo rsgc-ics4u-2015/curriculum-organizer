@@ -40,7 +40,7 @@
 
 
 // Generate the CSS file link
-$base = "http://" . $_SERVER['HTTP_HOST'] . "/curriculum-organizer/";
+$base = "https://" . $_SERVER['SERVER_NAME'] . "/curriculum-organizer/";
 $csslink = $base . "css/style.css";
 
 ?>
