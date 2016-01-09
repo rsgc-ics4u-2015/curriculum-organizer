@@ -54,8 +54,6 @@ if(isset($_POST['submit']))  {
             $hashed_password = password_hash($provided_password, PASSWORD_DEFAULT);
             $query = "INSERT INTO author_or_editor (username, firstname, lastname, password, approved) VALUES ('" . $provided_username . "', '" . $provided_firstname . "', '" . $provided_lastname . "', '" . $hashed_password . "', false);";
                                  
-                                 echo $query;
-            
             // Check to see if query succeeded
             if (! mysqli_query($connection, $query)) {
                 // Show an error message, something unexpected happened (query should succeed)
