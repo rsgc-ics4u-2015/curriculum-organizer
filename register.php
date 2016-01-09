@@ -59,10 +59,10 @@ if(isset($_POST['submit']))  {
                 // Show an error message, something unexpected happened (query should succeed)
                 $message['general'] = "We could not create your account at this time. Please try again later.";
             } else {
-                // All is well, re-direct to the logged-in home page
+                // All is well, re-direct to the page where the user can log in.
                 $host  = $_SERVER['HTTP_HOST'];
                 $uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-                $extra = 'home.php';
+                $extra = 'index.php';
                 header("Location: http://$host$uri/$extra");
                 exit;
             }
