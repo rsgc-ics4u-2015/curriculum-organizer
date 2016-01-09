@@ -101,16 +101,11 @@ if(isset($_POST['submit']))  {
 
   <link rel="stylesheet" href="../css/style.css?v=1.0">
 
-  <!--[if lt IE 9]>
-  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-  
   <!-- A properly secured site would serve this page over HTTPS (secure HTTP). Why is that? -->
   
 </head>
 
 <body>
-    <!--<script src="js/scripts.js"></script>-->
 
     <header>
         <ul>
