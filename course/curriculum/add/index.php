@@ -99,7 +99,7 @@ $csslink = $base . "css/style.css";
 </head>
 
 <body>
-    <script src="js/scripts.js"></script>
+    <!--<script src="js/scripts.js"></script>-->
 
     <header>
         <ul>
