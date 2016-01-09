@@ -141,7 +141,7 @@ if(!isset($_GET['cid']))  {
     <nav>
         <ul>
             <li><a href="../home.php">Home</a> > <?php echo $course_code; ?></li>
-            <li><a href="<?php echo $base; ?>logout.php">logout</a></li>
+            <li><a href="../logout.php">logout</a></li>
             <li><?php echo $_SESSION['username']; ?></li>
         </ul>
     </nav>

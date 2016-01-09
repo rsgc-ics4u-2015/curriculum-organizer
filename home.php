@@ -66,7 +66,7 @@
     <nav>
         <ul>
             <li>Home</li>
-            <li><a href="<?php echo $base; ?>logout.php">logout</a></li>
+            <li><a href="./logout.php">logout</a></li>
             <li><?php echo $_SESSION['username']; ?></li>
         </ul>
     </nav>

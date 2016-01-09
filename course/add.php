@@ -116,7 +116,7 @@ if(isset($_POST['submit']))  {
     <nav>
         <ul>
             <li><a href="../home.php">Home</a> > Add Course...</li>
-            <li><a href="<?php echo $base; ?>logout.php">logout</a></li>
+            <li><a href="../logout.php">logout</a></li>
             <li><?php echo $_SESSION['username']; ?></li>
         </ul>
     </nav>
