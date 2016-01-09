@@ -87,7 +87,7 @@ if(!isset($_GET['cid']))  {
                 
                 // Something happened when talking to database, re-direct to logged-in home page
                 // TODO: Implement proper error logging
-                redirect('../../home.php');
+                redirect('../home.php');
                 
             } else {
                 
