@@ -74,6 +74,47 @@ if(!isset($_GET['cid']))  {
             //$query = "";
             //$result = mysqli_query($connection, $query);
 
+            // // Build query
+            // $query  = "SELECT COUNT(m.id) AS expectations_count ";
+            // $query .= "FROM course c ";
+            // $query .= "INNER JOIN strand s ";            
+            // $query .= "ON s.course_id = c.id ";            
+            // $query .= "INNER JOIN overall_expectation o ";            
+            // $query .= "ON o.strand_id = s.id ";            
+            // $query .= "INNER JOIN minor_expectation m ";            
+            // $query .= "ON m.overall_expectation_id = o.id ";            
+            // $query .= "WHERE c.id = " . $course_id . ";";
+            
+            // // Run query
+            // $result = mysqli_query($connection, $query);
+            
+            // // Check for a result
+            // if ($result == false) {
+                
+            //     // Something happened when talking to database, re-direct to logged-in home page
+            //     // TODO: Implement proper error logging
+            //     redirect('../home.php');
+                
+            // } else {
+                
+            //     if (mysqli_num_rows($result) != 1) {
+            
+            //         // This shouldn't happen either, query uses aggregate function and should return a single row, so,
+            //         // re-direct to logged-in home page
+            //         // TODO: Implement proper error logging
+            //         redirect('../home.php');
+                    
+            //     } else {
+                    
+            //         // We have a valid result for this query
+            //         $row = mysqli_fetch_assoc($result);
+            //         $expectations_count = $row['expectations_count'];
+
+            //     }
+                
+            // }
+
+
         }
 
     }

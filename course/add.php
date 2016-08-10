@@ -51,7 +51,7 @@ if(isset($_POST['submit']))  {
     }
 
     // Verify that URL provided is actually a URL
-    if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i", $provided_url)) {
+    if (!filter_var($provided_url, FILTER_VALIDATE_URL)) {
         $message['url'] = "Please provide a valid URL, e.g.: http://www.edu.gov.on.ca/eng/curriculum/secondary/math910curr.pdf";
     }
 
@@ -123,15 +123,29 @@ if(isset($_POST['submit']))  {
 
     <main>
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-            Name:<br/>
-            <input type="text" name="name" value="<?php echo $_POST['name'] ?>" maxlength="45" size="45"> <?php echo $message['name']; ?><br/><br/>
-            Code:<br/>
-            <input type="text" name="code" value="<?php echo $_POST['code'] ?>" maxlength="8" size="8"> <?php echo $message['code']; ?><br/><br/>
-            Description:<br/>
-            <textarea name="description" cols="80" rows="8" maxlength="1024"><?php echo $_POST['description'] ?></textarea><?php echo $message['description']; ?><br/><br/>
-            Canoninical curriculum URL:<br/>
-            <input type="text" name="url" value="<?php echo $_POST['url'] ?>" maxlength="80" size="80"> <?php echo $message['url']; ?><br/><br/>
-            <input type="submit" name="submit" value="Add">
+            <fieldset>
+                <label>
+                    <p>Name:</p>
+                    <input type="text" name="name" value="<?php echo $_POST['name'] ?>" maxlength="45" size="45">
+                    <p class="error"><?php echo $message['name']; ?></p>
+                </label>                    
+                <label>
+                    <p>Code:</p>
+                    <input type="text" name="code" value="<?php echo $_POST['code'] ?>" maxlength="8" size="8">
+                    <p class="error"><?php echo $message['code']; ?></p>
+                </label>                    
+                <label>
+                    <p>Description:</p>
+                    <textarea name="description" cols="80" rows="8" maxlength="1024"><?php echo $_POST['description'] ?></textarea>
+                    <p class="error"><?php echo $message['description']; ?></p>
+                </label>                    
+                <label>
+                    <p>Canoninical curriculum URL:</p>
+                    <input type="text" name="url" value="<?php echo $_POST['url'] ?>" maxlength="80" size="80">
+                    <p class="error"><?php echo $message['url']; ?></p>
+                </label>                    
+                <input type="submit" name="submit" value="Add">
+            </fieldset>
         </form>
         
         <p><?php echo $message['general']; ?></p>

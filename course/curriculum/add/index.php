@@ -20,6 +20,7 @@ if(!isset($_SESSION['username']))
 
 // This page should always be submitted with a GET request method
 // If it is not, redirect to logged in home page
+// TO DO: Get rid of this course id checking. Should have been set in session when course page was navigated to.
 if(!isset($_GET['cid']))  {
 
     redirect('../../../home.php');

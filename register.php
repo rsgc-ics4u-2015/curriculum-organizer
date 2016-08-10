@@ -103,15 +103,29 @@ if(isset($_POST['submit']))  {
 
     <main>
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-            Select a username:<br/>
-            <input type="text" name="username" value="<?php echo $_POST['username'] ?>" maxlength="45" size="45"> <?php echo $message['username']; ?><br/><br/>
-            First name:<br/>
-            <input type="text" name="firstname" value="<?php echo $_POST['firstname'] ?>" maxlength="45" size="45"> <?php echo $message['firstname']; ?><br/><br/>
-            Last name:<br/>
-            <input type="text" name="lastname" value="<?php echo $_POST['lastname'] ?>" maxlength="45" size="45"> <?php echo $message['lastname']; ?><br/><br/>
-            Select a password:<br/>
-            <input type="password" name="password" value="<?php echo $_POST['password'] ?>" maxlength="45" size="45"> <?php echo $message['password']; ?><br/><br/>
-            <input type="submit" name="submit" value="Create new account">
+            <fieldset>
+                <label>
+                    <p>Select a username:</p>
+                    <input type="text" name="username" value="<?php echo $_POST['username'] ?>" maxlength="45" size="45">
+                    <p class="error"><?php echo $message['username']; ?></p>
+                </label>                    
+                <label>
+                    <p>First name:</p>
+                    <input type="text" name="firstname" value="<?php echo $_POST['firstname'] ?>" maxlength="45" size="45">
+                    <p class="error"><?php echo $message['firstname']; ?></p>
+                </label>                    
+                <label>
+                    <p>Last name:</p>
+                    <input type="text" name="lastname" value="<?php echo $_POST['lastname'] ?>" maxlength="45" size="45">
+                    <p class="error"><?php echo $message['lastname']; ?></p>
+                </label>                    
+                <label>
+                    <p>Select a password:</p>
+                    <input type="password" name="password" value="<?php echo $_POST['password'] ?>" maxlength="45" size="45">
+                    <p class="error"><?php echo $message['password']; ?></p>
+                </label>                    
+                <input type="submit" name="submit" value="Create new account">
+            </fieldset>
         </form>
         
         <p>Note that new accounts will not be usable until approved by the system administrator.</p>

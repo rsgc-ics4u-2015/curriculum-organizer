@@ -73,6 +73,7 @@ if(!isset($_SESSION['username']))
 
 // This page should always be submitted with a GET request method
 // If it is not, redirect to logged in home page
+// TO DO: Get rid of this course id checking. Should have been set in session when course page was navigated to.
 if(!isset($_GET['cid']))  {
 
     redirect('../../home.php');
@@ -161,10 +162,6 @@ if(!isset($_GET['cid']))  {
 
 }
 
-// Generate the CSS file link
-$base = "https://" . $_SERVER['SERVER_NAME'] . "/curriculum-organizer/";
-$csslink = $base . "css/style.css";
-
 ?>
 
 <!doctype html>
@@ -175,7 +172,7 @@ $csslink = $base . "css/style.css";
 
   <title>Curriculum Organizer</title>
 
-  <link rel="stylesheet" href="<?php echo $csslink; ?>?v=1.0">
+  <link rel="stylesheet" href="../../css/style.css?v=1.0">
 
   <!--[if lt IE 9]>
   <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -190,7 +187,7 @@ $csslink = $base . "css/style.css";
 
     <header>
         <ul>
-            <li><img src="<?php echo $base; ?>images/logo-small.png"/></li>
+            <li><img src="../../images/logo-small.png"/></li>
         </ul>
     </header>
 

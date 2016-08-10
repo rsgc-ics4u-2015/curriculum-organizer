@@ -76,16 +76,24 @@ if(isset($_POST['submit']))  {
 
     <main>
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-            Username:<br/>
-            <input type="text" name="username" value="<?php echo $_POST['username'] ?>" maxlength="45" size="45"> <?php echo $message['username']; ?><br/><br/>
-            Password:<br/>
-            <input type="password" name="password" value="<?php echo $_POST['password'] ?>" maxlength="45" size="45"> <?php echo $message['password']; ?><br/><br/>
+            <fieldset>
+                <label>
+                    <p>Username:</p>
+                    <input type="text" name="username" value="<?php echo $_POST['username'] ?>" maxlength="45" size="45">
+                    <p class="error"><?php echo $message['username']; ?></p>
+                </label>
+                <label>
+                    <p>Password:</p>
+                    <input type="password" name="password" value="<?php echo $_POST['password'] ?>" maxlength="45" size="45">
+                    <p class="error"><?php echo $message['password']; ?></p>
+                </label>
+            </fieldset>
             <input type="submit" name="submit" value="Login">
         </form>
       
         <p>... or, <a href="register.php">create a new account</a>.</p>
     
-        <p><?php echo $message['general']; ?></p>
+        <p class="error"><?php echo $message['general']; ?></p>
     </main>
   
 </body>

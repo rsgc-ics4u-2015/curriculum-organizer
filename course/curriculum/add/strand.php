@@ -20,6 +20,7 @@ if(!isset($_SESSION['username']))
 
 // This page should be submitted with a cid
 // If it is not, redirect to logged in home page
+// TO DO: Get rid of this course id checking. Should have been set in session when course page was navigated to.
 if(!isset($_GET['cid']) && !isset($_POST['cid']))  {
 
     redirect('../../../home.php');
@@ -192,12 +193,20 @@ if(!isset($_GET['cid']) && !isset($_POST['cid']))  {
 
     <main>
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-            Code:<br/>
-            <input type="text" name="code" value="<?php echo $_POST['code'] ?>" maxlength="2" size="2"> <?php echo $message['code']; ?><br/><br/>
-            Title:<br/>
-            <input type="text" name="title" value="<?php echo $_POST['title'] ?>" maxlength="255" size="80"> <?php echo $message['title']; ?><br/><br/>
-            <input type="hidden" name="cid" value="<?php echo $course_id; ?>">
-            <input type="submit" name="submit" value="Add">
+            <fieldset>
+                <label>
+                    <p>Code:</p>
+                    <input type="text" name="code" value="<?php echo $_POST['code'] ?>" maxlength="2" size="2">
+                    <p class="error"><?php echo $message['code']; ?></p>
+                </label>                    
+                <label>
+                    <p>Title:</p>
+                    <input type="text" name="title" value="<?php echo $_POST['title'] ?>" maxlength="255" size="80">
+                    <p class="error"><?php echo $message['title']; ?></p>
+                </label>                    
+                <input type="hidden" name="cid" value="<?php echo $course_id; ?>">
+                <input type="submit" name="submit" value="Add">
+            </fieldset>            
         </form>
         <p><?php echo $message['general']; ?></p>
     </main>

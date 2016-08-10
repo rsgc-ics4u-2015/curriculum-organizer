@@ -63,6 +63,8 @@ if(!isset($_GET['cid']))  {
         } else {
             
             // We have a valid result for this course
+            // TO DO: Save the course id in the session, to be used by pages below this page in
+            //        site hierarchy
             $row = mysqli_fetch_assoc($result);
             $course_code = $row['code'];
             $course_url = $row['url'];
