@@ -9,6 +9,71 @@ function redirect($page) {
     exit;
 }
 
+// get_overall_expectations
+// Purpose: Poll the overall expectations table and get all expectations for the given strand id
+//
+//          $db_connection  - The active database connection.
+//          $sid            - The id for this strand, from the strands table.
+//          $scode          - The code for the given strand, e.g.: A, B, C...
+function get_overall_expectations($db_connection, $sid, $scode) {
+    
+    // Get strands for this course
+    $query = "SELECT id, code, title, description FROM overall_expectation WHERE strand_id = " . $sid . ";";
+    $result = mysqli_query($db_connection, $query);
+    
+    // Iterate over the result set
+    $output = "";
+    while ($row = mysqli_fetch_assoc($result)) {
+        $output .= "\t\t\t<h3>" . $scode . $row['code'] . ". " . $row['title'] . "</h3>\n";
+
+        // Now get the minor expectations for this overall expectation id
+        $output .= get_minor_expectations($db_connection, $scode, $row['id'], $row['code']);
+
+    }
+
+    // Return the generated HTML
+    return($output);
+    
+}
+
+// get_minor_expectations
+// Purpose: Poll the minor expectations table and get all expectations for the given overall expectation id
+//
+//          $db_connection  - The active database connection.
+//          $scode          - The code for the given strand, e.g.: A, B, C...
+//          $oid            - The id for this overall expectation, from the overall_expectation table.
+//          $ocode          - The code for the given overall expectation, e.g.: A, B, C...
+function get_minor_expectations($db_connection, $scode, $oid, $ocode) {
+    
+    // Get strands for this course
+    $query = "SELECT id, code, description FROM minor_expectation WHERE overall_expectation_id = " . $oid . " ORDER BY code ASC;";
+    $result = mysqli_query($db_connection, $query);
+    
+    // Iterate over the result set
+    $output = "";
+    $count = 1;
+    while ($row = mysqli_fetch_assoc($result)) {
+        $output .= "\t\t\t\t<span class=\"expectation\">\n";
+        if (isChecked('expectations', $row['id'])) {
+            $checkedStatus = 'checked';
+        } else {
+            $checkedStatus = '';
+        }
+        $output .= "\t\t\t\t<input type=\"checkbox\" name=\"expectations[]\" value=\"" . $row['id'] . "\" " . $checkedStatus . "/>" . $scode . $ocode . "." . $row['code'] . " &nbsp;\n";
+        $output .= "\t\t\t\t<span class=\"tooltip\">" . $row['description'] . "</span>\n";                
+        $output .= "\t\t\t\t</span>\n";
+        $count += 1;
+        if ($count > 5) {
+            $count = 0;
+            $output .= "<br/>";
+        }
+    }
+
+    // Return the generated HTML
+    return($output);
+    
+}
+
 // isChecked
 // Purpose: Verifies whether a given checkbox was already checked.
 //          Used to ensure that a checkbox remains checked after a page reload.
@@ -23,6 +88,48 @@ function isChecked($forName, $value) {
         }
     }
     return false;
+}
+
+// get_expectations
+// Purpose: Populate the list of expectations to be shown on this page
+function get_expectations($db_connection, $cid) {
+    
+    // Run query to get curriculum details for this course
+    $query = "SELECT id, code, title FROM strand WHERE course_id = " . $cid . ";";
+    $result = mysqli_query($db_connection, $query);
+    
+    // Check for a result
+    if ($result == false) {
+        
+        // Something happened when talking to database, re-direct to logged-in home page
+        // TODO: Implement proper error logging
+        redirect('../../../home.php');
+        
+    } else {
+        
+        if (mysqli_num_rows($result) > 0) {
+            
+            // Iterate over the result set
+            $output = "";
+            while ($row = mysqli_fetch_assoc($result)) {
+                $output .= "\t\t<h2>";
+                $output .= $row['code'] . ". " . $row['title'];
+                $output .= "</h2>\n";
+                
+                // Now get the overall expectations for this strand id
+                $output .= get_overall_expectations($db_connection, $row['id'], $row['code']);
+            }
+    
+        } else {
+            
+            $output = "No curriculum expectations defined for this course.";
+            
+        }
+    }
+
+    // Return the generated HTML
+    return($output);
+
 }
 
 // Check whether session created (is user logged in?)
@@ -84,6 +191,9 @@ if(!isset($_GET['cid']) && !isset($_POST['cid']))  {
             $row = mysqli_fetch_assoc($result);
             $course_code = $row['code'];
             $course_id = $row['id'];
+            
+            // Get the expectations
+            $output = get_expectations($connection, $course_id);
 
         }
     }
@@ -110,7 +220,7 @@ if(!isset($_GET['cid']) && !isset($_POST['cid']))  {
         $message['shortlabel'] = "Label for question is required. This should be the number assigned in the document.";
     }
     if (strlen($provided_url) == 0) {
-        $message['url'] = "URL for question is required. This should be a direct link to the question (get from document table of contents).";
+        $message['url'] = "URL for question is required. This should be a direct link to the question.";
     }
     if (strlen($provided_evaluation_category_id) == 0) {
         $message['evaluationcategory'] = "Please select an evaluation category for this question.";
@@ -135,7 +245,7 @@ if(!isset($_GET['cid']) && !isset($_POST['cid']))  {
         $message['url'] = "URL provided is too long, maximum length is 2000 characters.";
     }
     if (!filter_var($provided_url, FILTER_VALIDATE_URL)) {
-        $message['url'] = "Please provide a valid URL. This should be a direct link to the question (get from document table of contents).";
+        $message['url'] = "Please provide a valid URL. This should be a direct link to the question.";
     }
     if ($provided_evaluation_category_id < 0 || $provided_evaluation_category_id > 4) {
         $message['evaluationcategory'] = "Please select a valid evaluation category.";
@@ -193,6 +303,10 @@ if(!isset($_GET['cid']) && !isset($_POST['cid']))  {
             $row = mysqli_fetch_assoc($result);
             $course_code = $row['code'];
             $course_id = $row['id'];
+
+            // Get the expectations
+            $output = get_expectations($connection, $course_id);
+
         }
     }
     
@@ -264,7 +378,7 @@ if(!isset($_GET['cid']) && !isset($_POST['cid']))  {
                 </label>                    
                 <label>
                     <p>URL:</p>
-                    <input type="text" name="url" value="<?php echo $_POST['url'] ?>" maxlength="2000" size="100">
+                    <input type="text" name="url" value="<?php echo $_POST['url'] ?>" maxlength="2000" size="60">
                     <p class="error"><?php echo $message['url']; ?></p>
                 </label>                    
                 <label>
@@ -290,22 +404,14 @@ if(!isset($_GET['cid']) && !isset($_POST['cid']))  {
                 </label>                    
                 <label>
                     <p>Select <a href="../../curriculum/?cid=<?php echo $course_id ?>" target="_blank">curriculum expectation(s)</a> addressed:</p>
-                    <span class="expectation">
-                        <input type="checkbox" name="expectations[]" value="A" <?php if (isChecked('expectations', 'A')) echo 'checked'; ?>/>A1.1 &nbsp;
-                        <span class="tooltip">Explanation of A1.1 expectation</span>
-                    </span>
-                    <span class="expectation">
-                        <input type="checkbox" name="expectations[]" value="B" <?php if (isChecked('expectations', 'B')) echo 'checked'; ?>/>A1.2 &nbsp;
-                        <span class="tooltip">Explanation of A1.2 expectation</span>
-                    </span>
-                    <span class="expectation">
-                        <input type="checkbox" name="expectations[]" value="C" <?php if (isChecked('expectations', 'C')) echo 'checked'; ?>/>A1.3 &nbsp;
-                        <span class="tooltip">Explanation of A1.3 expectation</span>
-                    </span>
-                <p class="error"><?php echo $message['expectations']; ?></p>
+                    <?php echo $output; ?>
+                    <p class="error"><?php echo $message['expectations']; ?></p>
                 </label>
                 <input type="hidden" name="cid" value="<?php echo $course_id; ?>">
-                <input type="submit" name="submit" value="Add">
+                <input type="submit" name="submit" value="Add this question">
+                <br/><br/>
+                <br/><br/>
+                <br/><br/>
             </fieldset>
         </form>
         <p><?php echo $message['general']; ?></p>
