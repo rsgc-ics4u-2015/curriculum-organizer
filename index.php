@@ -16,7 +16,7 @@ if(isset($_POST['submit']))  {
     // Process a log in
     $provided_username = htmlspecialchars($_POST['username']);
     $provided_password = htmlspecialchars($_POST['password']);
-    $query = "SELECT password FROM author_or_editor WHERE username = ('" . $provided_username . "');";
+    $query = "SELECT id, password FROM author_or_editor WHERE username = ('" . $provided_username . "');";
     
     // Get results
     $result = mysqli_query($connection, $query);
@@ -31,10 +31,12 @@ if(isset($_POST['submit']))  {
           // We have a result, now do the comparison of passwords
           $row = mysqli_fetch_assoc($result);
           $stored_password = $row['password'];
+          $stored_id = $row['id'];
           if (password_verify($provided_password, $stored_password) == true) {
                 // All is well, set the session
                 session_start();
                 $_SESSION['username'] = $provided_username; 
+                $_SESSION['userid'] = $stored_id; 
                 
                 // Now re-direct to the logged-in home page
                 $host  = $_SERVER['HTTP_HOST'];

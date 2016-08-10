@@ -231,8 +231,6 @@ if(!isset($_GET['cid']) && !isset($_POST['cid']))  {
     if (strlen($provided_year) == 0) {
         $message['year'] = "Please select an academic year.";
     }
-    // expectations (curriculum)
-    // author_or_editor_id
     
     // Verify that field data given is reasonable
     if (strlen($provided_title) > 45) {
@@ -259,8 +257,6 @@ if(!isset($_GET['cid']) && !isset($_POST['cid']))  {
     if (empty($provided_expectations)) {
         $message['expectations'] = "Please select at least one curriculum expectation this question addresses.";
     }
-    // expectations (curriculum)
-    // author_or_editor_id
 
     // Get the provided course id (sanity check and for building page data on POST submission)
     $provided_id = htmlspecialchars($_POST['cid']);
@@ -315,15 +311,34 @@ if(!isset($_GET['cid']) && !isset($_POST['cid']))  {
 
         // We have a valid result for this course
         // Add the question to the database
-        //$query = "INSERT INTO strand (code, title, course_id) VALUES ('" . $provided_code . "', '" . $provided_title . "', " . $course_id . ");";
+        $query = "INSERT INTO question (shortlabel, title, url, type_id, evaluation_category_id, author_or_editor_id, year) VALUES ('" . $provided_short_label . "', '" . $provided_title . "', '" . $provided_url . "', " . $provided_type_id . ", " . $provided_evaluation_category_id . ", " . $_SESSION['userid'] . ", '" . $provided_year . "');";
 
         // Check to see if query succeeded
         if (! mysqli_query($connection, $query)) {
+            
             // Show an error message, something unexpected happened (query should succeed)
             $message['general'] = "We could not create the question at this time. Please try again later.";
+            
         } else {
             
-            // All is well, re-direct to the logged-in curriculum page for this course
+            // Now that the query succeeded, make connections to the curriculum expectations identified
+            $question_id = mysqli_insert_id($connection);
+            
+            // Loop over all tagged curriculum expectations
+            foreach($provided_expectations as $minor_expectation_id) {
+                
+                // Connect the question to the expectation
+                $query = "INSERT INTO question_has_minor_expectation (question_id, minor_expectation_id) VALUES (" . $question_id . ", " . $minor_expectation_id . ");";
+
+                if (! mysqli_query($connection, $query)) {
+            
+                    // TODO: Add proper error handling here.
+
+                }
+                
+            }
+
+            // Re-direct to the logged-in curriculum page for this course
             redirect('../index.php?cid=' . $course_id);
         }
 
