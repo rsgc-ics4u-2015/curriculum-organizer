@@ -71,7 +71,7 @@ if(!isset($_GET['cid']))  {
             // Run query to get questions linked to curriculum for this course
             //       Populate the $output variable
             // Build query for questions count
-            $query  = "SELECT q.id, q.shortlabel, q.title ";
+            $query  = "SELECT q.id, q.shortlabel, q.title, q.url ";
             $query .= "FROM course c ";
             $query .= "INNER JOIN strand s ";            
             $query .= "ON s.course_id = c.id ";            
@@ -84,7 +84,7 @@ if(!isset($_GET['cid']))  {
             $query .= "INNER JOIN question q ";
             $query .= "ON qm.question_id = q.id ";
             $query .= "WHERE c.id = " . $course_id . " ";
-            $query .= "GROUP BY c.id;";
+            $query .= "GROUP BY q.id;";
             
             // Run the query
             $result = mysqli_query($connection, $query);
@@ -105,7 +105,17 @@ if(!isset($_GET['cid']))  {
                 } else {
                     
                     // Iterate over results and build a list of questions
-                    $output = "There are questions but we need to build the list.";
+                    $output = "";
+                    $output .= "<ul class=\"bare\">";
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $output .= "\t\t<li>";
+                        $output .= $row['shortlabel'] . ". ";
+                        $output .= "<a href=\"" . $row['url'] . "\" target=\"_blank\">";
+                        $output .= $row['title'];
+                        $output .= "</a>";
+                        $output .= "</li>\n";
+                    }
+                    $output .= "</ul>";
 
                 }
                 

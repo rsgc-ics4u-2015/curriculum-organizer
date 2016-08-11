@@ -142,3 +142,8 @@ form > fieldset > label > h3 {
 .expectation {
     margin-left: 35px;
 }
+
+.bare {
+    list-style-type: none;
+    margin-left: 0px;
+}
