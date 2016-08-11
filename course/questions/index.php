@@ -69,51 +69,47 @@ if(!isset($_GET['cid']))  {
             $course_id = $row['id'];
 
             // Run query to get questions linked to curriculum for this course
-            // TODO: Implement this (after question add page is complete)
             //       Populate the $output variable
-            //$query = "";
-            //$result = mysqli_query($connection, $query);
+            // Build query for questions count
+            $query  = "SELECT q.id, q.shortlabel, q.title ";
+            $query .= "FROM course c ";
+            $query .= "INNER JOIN strand s ";            
+            $query .= "ON s.course_id = c.id ";            
+            $query .= "INNER JOIN overall_expectation o ";            
+            $query .= "ON o.strand_id = s.id ";            
+            $query .= "INNER JOIN minor_expectation m ";            
+            $query .= "ON m.overall_expectation_id = o.id ";            
+            $query .= "INNER JOIN question_has_minor_expectation qm ";
+            $query .= "ON qm.minor_expectation_id = m.id "; 
+            $query .= "INNER JOIN question q ";
+            $query .= "ON qm.question_id = q.id ";
+            $query .= "WHERE c.id = " . $course_id . " ";
+            $query .= "GROUP BY c.id;";
+            
+            // Run the query
+            $result = mysqli_query($connection, $query);
 
-            // // Build query
-            // $query  = "SELECT COUNT(m.id) AS expectations_count ";
-            // $query .= "FROM course c ";
-            // $query .= "INNER JOIN strand s ";            
-            // $query .= "ON s.course_id = c.id ";            
-            // $query .= "INNER JOIN overall_expectation o ";            
-            // $query .= "ON o.strand_id = s.id ";            
-            // $query .= "INNER JOIN minor_expectation m ";            
-            // $query .= "ON m.overall_expectation_id = o.id ";            
-            // $query .= "WHERE c.id = " . $course_id . ";";
-            
-            // // Run query
-            // $result = mysqli_query($connection, $query);
-            
-            // // Check for a result
-            // if ($result == false) {
+            // Check for a result
+            if ($result == false) {
                 
-            //     // Something happened when talking to database, re-direct to logged-in home page
-            //     // TODO: Implement proper error logging
-            //     redirect('../home.php');
+                // Something happened when talking to database, re-direct to logged-in home page
+                // TODO: Implement proper error logging
+                redirect('../home.php');
                 
-            // } else {
+            } else {
                 
-            //     if (mysqli_num_rows($result) != 1) {
+                if (mysqli_num_rows($result) == 0) {
             
-            //         // This shouldn't happen either, query uses aggregate function and should return a single row, so,
-            //         // re-direct to logged-in home page
-            //         // TODO: Implement proper error logging
-            //         redirect('../home.php');
+                    $output = "There are currently no questions defined for this course.";
+
+                } else {
                     
-            //     } else {
-                    
-            //         // We have a valid result for this query
-            //         $row = mysqli_fetch_assoc($result);
-            //         $expectations_count = $row['expectations_count'];
+                    // Iterate over results and build a list of questions
+                    $output = "There are questions but we need to build the list.";
 
-            //     }
+                }
                 
-            // }
-
+            }
 
         }
 
@@ -157,7 +153,6 @@ if(!isset($_GET['cid']))  {
         <p><a href="./add/?cid=<?php echo $course_id; ?>">add</a></p>
         <p>
             <?php echo $output; ?>
-            There are currently no questions defined for this course.
         </p>
     </main>
 
