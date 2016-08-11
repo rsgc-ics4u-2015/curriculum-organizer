@@ -156,7 +156,7 @@ if(!isset($_GET['cid']))  {
     <main>
         <p><a href="./add/?cid=<?php echo $course_id; ?>">add</a></p>
         <p>
-    <?php echo $output; ?>
+            <?php echo $output; ?>
             There are currently no questions defined for this course.
         </p>
     </main>

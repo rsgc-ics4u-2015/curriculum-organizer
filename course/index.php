@@ -70,7 +70,7 @@ if(!isset($_GET['cid']))  {
             $course_url = $row['url'];
             $course_id = $row['id'];
             
-            // Build query for expectations count
+            // Build query for questions count
             $query  = "SELECT COUNT(DISTINCT q.id) AS questions_count ";
             $query .= "FROM course c ";
             $query .= "INNER JOIN strand s ";            
