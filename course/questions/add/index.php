@@ -248,7 +248,7 @@ if(!isset($_GET['cid']) && !isset($_POST['cid']))  {
     if ($provided_evaluation_category_id < 0 || $provided_evaluation_category_id > 4) {
         $message['evaluationcategory'] = "Please select a valid evaluation category.";
     }
-    if ($provided_evaluation_category_id < 0 || $provided_evaluation_category_id > 3) {
+    if ($provided_type_id < 0 || $provided_type_id > 3) {
         $message['type'] = "Please select a valid question type.";
     }
     if ($provided_year != '2015-16' && $provided_year != '2016-17' && strlen($provided_year) != 0) {
