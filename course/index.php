@@ -70,6 +70,51 @@ if(!isset($_GET['cid']))  {
             $course_url = $row['url'];
             $course_id = $row['id'];
             
+            // Build query for expectations count
+            $query  = "SELECT COUNT(DISTINCT q.id) AS questions_count ";
+            $query .= "FROM course c ";
+            $query .= "INNER JOIN strand s ";            
+            $query .= "ON s.course_id = c.id ";            
+            $query .= "INNER JOIN overall_expectation o ";            
+            $query .= "ON o.strand_id = s.id ";            
+            $query .= "INNER JOIN minor_expectation m ";            
+            $query .= "ON m.overall_expectation_id = o.id ";            
+            $query .= "INNER JOIN question_has_minor_expectation qm ";
+            $query .= "ON qm.minor_expectation_id = m.id "; 
+            $query .= "INNER JOIN question q ";
+            $query .= "ON qm.question_id = q.id ";
+            $query .= "WHERE c.id = " . $course_id . ";";
+
+
+            // Run query
+            $result = mysqli_query($connection, $query);
+            
+            // Check for a result
+            if ($result == false) {
+                
+                // Something happened when talking to database, re-direct to logged-in home page
+                // TODO: Implement proper error logging
+                redirect('../home.php');
+                
+            } else {
+                
+                if (mysqli_num_rows($result) != 1) {
+            
+                    // This shouldn't happen either, query uses aggregate function and should return a single row, so,
+                    // re-direct to logged-in home page
+                    // TODO: Implement proper error logging
+                    redirect('../home.php');
+                    
+                } else {
+                    
+                    // We have a valid result for this query
+                    $row = mysqli_fetch_assoc($result);
+                    $questions_count = $row['questions_count'];
+
+                }
+                
+            }
+            
             // Build query
             $query  = "SELECT COUNT(m.id) AS expectations_count ";
             $query .= "FROM course c ";
@@ -151,7 +196,7 @@ if(!isset($_GET['cid']))  {
     <main>
         <p>
             <ul>
-                <li><a href="./questions/?cid=<?php echo $course_id ?>">See Questions (xx so far)</a></li>
+                <li><a href="./questions/?cid=<?php echo $course_id ?>">See Questions (<?php echo $questions_count; ?> so far)</a></li>
                 <li><a href="./curriculum/?cid=<?php echo $course_id ?>">See Curriculum (<?php echo $expectations_count; ?> expectations)</a></li>
             </ul>
         </p>
