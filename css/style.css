@@ -187,6 +187,30 @@ form > fieldset > label > h3, table > tbody > tr > td > h3 {
     font-size: 10pt;
 }
 
+.unmet {
+    background-color: hsla(220, 80%, 60%, 0);
+}
+
+.met {
+    background-color: hsla(220, 80%, 55%, 1);
+}
+
+.met1 {
+    background-color: hsla(220, 80%, 90%, 1);
+}
+
+.met2 {
+    background-color: hsla(220, 80%, 80%, 1);
+}
+
+.met3 {
+    background-color: hsla(220, 80%, 70%, 1);
+}
+
+.met4 {
+    background-color: hsla(220, 80%, 60%, 1);
+}
+
 .heatmap-expectation {
     margin: 5px;
     display: inline-block;

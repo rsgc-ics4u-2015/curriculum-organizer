@@ -62,7 +62,25 @@ function get_minor_expectations($db_connection, $scode, $oid, $ocode) {
     while ($row = mysqli_fetch_assoc($result)) {
         $hit_count = $row['expectation_hit_count'] - 1;
         $output .= "\t\t\t\t<span class=\"heatmap-expectation\">\n";
-        $output .= "\t\t\t\t<span class=\"chiclet\"/>" . $scode . $ocode . "." . $row['expectation_code'] . " (" . $hit_count . ")" . "</span>\n";
+        $output .= "\t\t\t\t<span class=\"chiclet";
+        if ($hit_count == 0) {
+            $output .= " unmet";
+        } else if ($hit_count == 1) {
+            $output .= " met1";
+        } else if ($hit_count == 2) {
+            $output .= " met2";
+        } else if ($hit_count == 3) {
+            $output .= " met3";
+        } else if ($hit_count == 4) {
+            $output .= " met4";
+        } else {
+            $output .= " met";
+        }
+        $output .= "\"/>" . $scode . $ocode . "." . $row['expectation_code'];
+        // if ($hit_count > 0) {
+        //     $output .= " (" . $hit_count . ")";
+        // }
+        $output .= "</span>\n";
         $output .= "\t\t\t\t<span class=\"tooltip\">" . $row['description'] . "</span>\n";                
         $output .= "\t\t\t\t</span>\n";
     }
