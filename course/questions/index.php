@@ -81,7 +81,11 @@ function get_minor_expectations($db_connection, $scode, $oid, $ocode) {
         //     $output .= " (" . $hit_count . ")";
         // }
         $output .= "</span>\n";
-        $output .= "\t\t\t\t<span class=\"tooltip\">" . $row['description'] . "</span>\n";                
+        if ($hit_count == 1) {
+            $output .= "\t\t\t\t<span class=\"tooltip-for-heatmap\">" . $row['description'] . "<br/></br><strong>" . $hit_count . " question</strong></span>\n";                
+        } else {
+            $output .= "\t\t\t\t<span class=\"tooltip-for-heatmap\">" . $row['description'] . "<br/></br><strong>" . $hit_count . " questions</strong></span>\n";                
+        }
         $output .= "\t\t\t\t</span>\n";
     }
 
