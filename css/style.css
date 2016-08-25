@@ -4,7 +4,7 @@ html, body {
     border: 0px
 }
 
-p, a, li, h1, h2, h3, h4, h5, h6, form {
+p, a, li, h1, h2, h3, h4, h5, h6, form, table, th, td {
     font-family: Helvetica, Arial, sans-serif;
 }
 
@@ -101,6 +101,21 @@ fieldset > label > p {
     font-weight: normal;
 }
 
+table {
+    width: 100%;
+    padding-right: 20px;
+}
+
+th {
+    width: 50%;
+    text-align: left;
+}
+
+td {
+    border-top: 1px solid grey;
+    vertical-align: top;
+}
+
 .error {
     font-size: 9pt;
     color: red;
@@ -146,4 +161,5 @@ form > fieldset > label > h3 {
 .bare {
     list-style-type: none;
     margin-left: 0px;
+    padding-left: 0px;
 }

@@ -161,9 +161,17 @@ if(!isset($_GET['cid']))  {
 
     <main>
         <p><a href="./add/?cid=<?php echo $course_id; ?>">add</a></p>
-        <p>
-            <?php echo $output; ?>
-        </p>
+        <table>
+            <tr>
+                <th scope="col">Questions</th>
+                <th scope="col">Heat Map</th>
+            </tr>
+            <tr>
+                <td>
+                    <?php echo $output; ?>
+                </td>
+                <td>heat map goes here</td>
+        </table>
     </main>
 
 </body>
