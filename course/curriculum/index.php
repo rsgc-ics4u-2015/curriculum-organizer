@@ -25,7 +25,7 @@ function get_overall_expectations($db_connection, $sid, $scode) {
     $output = "";
     while ($row = mysqli_fetch_assoc($result)) {
         $output .= "\t\t\t<h3>" . $scode . $row['code'] . ". " . $row['title'] . "</h3>\n";
-        $output .= "\t\t\t<p>" . $row['description'] . "</p>\n";
+        $output .= "\t\t\t<p class=\"overall\">" . $row['description'] . "</p>\n";
 
         // Now get the minor expectations for this overall expectation id
         $output .= get_minor_expectations($db_connection, $scode, $row['id'], $row['code']);
@@ -54,7 +54,7 @@ function get_minor_expectations($db_connection, $scode, $oid, $ocode) {
     $output = "";
     while ($row = mysqli_fetch_assoc($result)) {
         $output .= "\t\t\t\t<h4>" . $scode . $ocode . "." . $row['code'] . "</h3>\n";
-        $output .= "\t\t\t\t<p>" . $row['description'] . "</p>\n";
+        $output .= "\t\t\t\t<p class=\"minor\">" . $row['description'] . "</p>\n";
     }
 
     // Return the generated HTML

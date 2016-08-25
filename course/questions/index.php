@@ -9,6 +9,103 @@ function redirect($page) {
     exit;
 }
 
+// get_overall_expectations
+// Purpose: Poll the overall expectations table and get all expectations for the given strand id
+//
+//          $db_connection  - The active database connection.
+//          $sid            - The id for this strand, from the strands table.
+//          $scode          - The code for the given strand, e.g.: A, B, C...
+function get_overall_expectations($db_connection, $sid, $scode) {
+    
+    // Get strands for this course
+    $query = "SELECT id, code, title, description FROM overall_expectation WHERE strand_id = " . $sid . ";";
+    $result = mysqli_query($db_connection, $query);
+    
+    // Iterate over the result set
+    $output = "";
+    while ($row = mysqli_fetch_assoc($result)) {
+        //$output .= "\t\t\t<h3>" . $scode . $row['code'] . ". " . $row['title'] . "</h3>\n";
+        $output .= "<h3 style=\"margin-top: 0px;\"/>";
+        // Now get the minor expectations for this overall expectation id
+        $output .= get_minor_expectations($db_connection, $scode, $row['id'], $row['code']);
+
+    }
+
+    // Return the generated HTML
+    return($output);
+    
+}
+
+// get_minor_expectations
+// Purpose: Poll the minor expectations table and get all expectations for the given overall expectation id
+//
+//          $db_connection  - The active database connection.
+//          $scode          - The code for the given strand, e.g.: A, B, C...
+//          $oid            - The id for this overall expectation, from the overall_expectation table.
+//          $ocode          - The code for the given overall expectation, e.g.: A, B, C...
+function get_minor_expectations($db_connection, $scode, $oid, $ocode) {
+    
+    // Get strands for this course
+    $query = "SELECT id, code, description FROM minor_expectation WHERE overall_expectation_id = " . $oid . " ORDER BY code ASC;";
+    $result = mysqli_query($db_connection, $query);
+    
+    // Iterate over the result set
+    $output = "";
+    $count = 1;
+    while ($row = mysqli_fetch_assoc($result)) {
+        $output .= "\t\t\t\t<span class=\"heatmap-expectation\">\n";
+        $output .= "\t\t\t\t<span class=\"chiclet\"/>" . $scode . $ocode . "." . $row['code'] . "</span>\n";
+        $output .= "\t\t\t\t<span class=\"tooltip\">" . $row['description'] . "</span>\n";                
+        $output .= "\t\t\t\t</span>\n";
+    }
+
+    // Return the generated HTML
+    return($output);
+    
+}
+
+// get_expectations
+// Purpose: Populate the list of expectations to be shown on this page
+function get_expectations($db_connection, $cid) {
+    
+    // Run query to get curriculum details for this course
+    $query = "SELECT id, code, title FROM strand WHERE course_id = " . $cid . ";";
+    $result = mysqli_query($db_connection, $query);
+    
+    // Check for a result
+    if ($result == false) {
+        
+        // Something happened when talking to database, re-direct to logged-in home page
+        // TODO: Implement proper error logging
+        redirect('../../../home.php');
+        
+    } else {
+        
+        if (mysqli_num_rows($result) > 0) {
+            
+            // Iterate over the result set
+            $output = "";
+            while ($row = mysqli_fetch_assoc($result)) {
+                $output .= "\t\t<h2>";
+                $output .= $row['code'] . ". " . $row['title'];
+                $output .= "</h2>\n";
+                
+                // Now get the overall expectations for this strand id
+                $output .= get_overall_expectations($db_connection, $row['id'], $row['code']);
+            }
+    
+        } else {
+            
+            $output = "No curriculum expectations defined for this course.";
+            
+        }
+    }
+
+    // Return the generated HTML
+    return($output);
+
+}
+
 // Check whether session created (is user logged in?)
 // If not, re-direct to main index page.
 session_start();
@@ -120,6 +217,10 @@ if(!isset($_GET['cid']))  {
                 }
                 
             }
+            
+            // Now get expectations to build the heat map
+            $heatmap_output = get_expectations($connection, $course_id);
+
 
         }
 
@@ -163,15 +264,20 @@ if(!isset($_GET['cid']))  {
         <p><a href="./add/?cid=<?php echo $course_id; ?>">add</a></p>
         <table>
             <tr>
-                <th scope="col">Questions</th>
-                <th scope="col">Heat Map</th>
-            </tr>
-            <tr>
                 <td>
                     <?php echo $output; ?>
                 </td>
-                <td>heat map goes here</td>
+                <td>
+                    <?php echo $heatmap_output; ?>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                </td>
+            </tr>
         </table>
+        
     </main>
 
 </body>
