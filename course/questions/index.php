@@ -45,16 +45,24 @@ function get_overall_expectations($db_connection, $sid, $scode) {
 //          $ocode          - The code for the given overall expectation, e.g.: A, B, C...
 function get_minor_expectations($db_connection, $scode, $oid, $ocode) {
     
-    // Get strands for this course
-    $query = "SELECT id, code, description FROM minor_expectation WHERE overall_expectation_id = " . $oid . " ORDER BY code ASC;";
+    // Get strands and counts
+    $query = "SELECT m.id as expectation_id, m.description as description, COUNT(*) as expectation_hit_count, m.code as expectation_code  ";
+    $query .= "FROM minor_expectation m ";
+    $query .= "LEFT JOIN question_has_minor_expectation q ";
+    $query .= "ON m.id = q.minor_expectation_id ";
+    $query .= "WHERE overall_expectation_id = " . $oid . " ";
+    $query .= "GROUP BY m.id ";
+    $query .= "ORDER BY code ASC; ";
+
     $result = mysqli_query($db_connection, $query);
     
     // Iterate over the result set
     $output = "";
     $count = 1;
     while ($row = mysqli_fetch_assoc($result)) {
+        $hit_count = $row['expectation_hit_count'] - 1;
         $output .= "\t\t\t\t<span class=\"heatmap-expectation\">\n";
-        $output .= "\t\t\t\t<span class=\"chiclet\"/>" . $scode . $ocode . "." . $row['code'] . "</span>\n";
+        $output .= "\t\t\t\t<span class=\"chiclet\"/>" . $scode . $ocode . "." . $row['expectation_code'] . " (" . $hit_count . ")" . "</span>\n";
         $output .= "\t\t\t\t<span class=\"tooltip\">" . $row['description'] . "</span>\n";                
         $output .= "\t\t\t\t</span>\n";
     }
